@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Depold:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Depold_jar</output-path>
+    <root id="archive" name="Depold.jar">
+      <element id="module-output" name="Depold" />
+      <element id="extracted-dir" path="$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/target/giraph-1.1.0-for-hadoop-2.7.2-jar-with-dependencies.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
