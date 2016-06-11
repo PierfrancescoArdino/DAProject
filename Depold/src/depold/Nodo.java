@@ -56,4 +56,9 @@ public class Nodo implements Writable{
             ID = WritableUtils.readString(dataInput);
             active = WritableUtils.readString(dataInput);
     }
+
+    @Override
+    public String toString(){
+        return this.ID + " " + this.active;
+    }
 }
