@@ -81,7 +81,7 @@ public class DepoldInputFormat extends
         @Override
         protected THALS getValue(JSONArray jsonVertex) throws
                 JSONException, IOException {
-            System.out.println("i'm in Depold input format");
+
             return new THALS();
         }
 

@@ -1,8 +1,6 @@
 package depold;
 
-import org.apache.hadoop.io.MapWritable;
-import org.apache.hadoop.io.Writable;
-import org.apache.hadoop.io.WritableUtils;
+import org.apache.hadoop.io.*;
 import org.apache.hadoop.io.file.tfile.TFile;
 import org.apache.hadoop.util.ReflectionUtils;
 
@@ -17,9 +15,11 @@ import java.util.Map;
  * Created by mariapia on 04/06/16.
  */
 public class THALS implements Writable{
-    Map <Nodo,Nodo> two_hop;
+    Map <Nodo,Nodo> two_hop; //map che ha come chiave il mio vicino(intermediario) e come valore il vicino two_hop
     String active; //per capire se io stesso sono stato filtrato o meno
     int fase;
+
+    Map<Nodo, DoubleWritable> similarity_map;
 
     public Map<Nodo, Nodo> getTwo_hop() {
         return two_hop;
@@ -40,6 +40,13 @@ public class THALS implements Writable{
         this.two_hop.put(neighbor, two_hopNeighbor);
     }
 
+    public void addSimilarity_map(Nodo key, DoubleWritable value){
+        if (this.similarity_map == null || this.similarity_map.isEmpty()){
+            this.similarity_map = new HashMap<>();
+        }
+        this.similarity_map.put(key,value);
+    }
+
 
 
     @Override
@@ -52,6 +59,12 @@ public class THALS implements Writable{
             e.getValue().write(dataOutput);
         }
         dataOutput.writeInt(fase);
+
+        WritableUtils.writeString(dataOutput,String.valueOf(similarity_map.size()));
+        for (Map.Entry<Nodo,DoubleWritable> e : similarity_map.entrySet()){
+            e.getKey().write(dataOutput);
+            e.getValue().write(dataOutput);
+        }
 
     }
 
@@ -71,9 +84,20 @@ public class THALS implements Writable{
         }
         fase = dataInput.readInt();
 
+        int dim = Integer.valueOf(WritableUtils.readString(dataInput));
+        if(dim != 0) {
+            for (int i = 0; i < dim; i++) {
+                Nodo key = new Nodo();
+                key.readFields(dataInput);
+                DoubleWritable value = new DoubleWritable();
+
+                value.readFields(dataInput);
+                addSimilarity_map(key,value);
+            }
+        }
     }
 
-    public THALS (){this.two_hop = new HashMap<>(); this.active = "true"; this.fase=0;}
+    public THALS (){this.two_hop = new HashMap<>(); this.active = "true"; this.fase=0; this.similarity_map = new HashMap<>();}
     public THALS (HashMap two_hop, String active){
         this.two_hop = two_hop;
         this.active = active;
@@ -89,7 +113,13 @@ public class THALS implements Writable{
         this.fase = fase;
     }
 
+    public Map<Nodo, DoubleWritable> getSimilarity_map() {
+        return similarity_map;
+    }
 
+    public void setSimilarity_map(Map<Nodo, DoubleWritable> similarity_map) {
+        this.similarity_map = similarity_map;
+    }
 
 }
 
