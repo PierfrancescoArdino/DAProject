@@ -5,6 +5,9 @@
       <artifact name="Depold:jar" />
     </artifacts-to-build>
   </component>
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/depold/Depold.java" line="232" mnemonic="7" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="bd7d1580-ba40-46f6-a445-31aab32748be" name="Default" comment="" />
     <ignored path="Depold.iws" />
@@ -28,34 +31,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SccComputation.java" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccComputation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="900">
-              <caret line="79" column="23" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SimpleShortestPathsComputation.java" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/SimpleShortestPathsComputation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="41" column="2" selection-start-line="41" selection-start-column="2" selection-end-line="43" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Depold.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/depold/Depold.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="492">
-              <caret line="260" column="26" selection-start-line="260" selection-start-column="26" selection-end-line="260" selection-end-column="26" />
+            <state relative-caret-position="585">
+              <caret line="317" column="26" selection-start-line="317" selection-start-column="26" selection-end-line="317" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#9409#9415#0" expanded="true" />
+                <element signature="e#9492#9498#0" expanded="true" />
+                <element signature="e#13073#13084#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DepoldInputFormat.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/depold/DepoldInputFormat.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="472">
+              <caret line="88" column="71" selection-start-line="88" selection-start-column="71" selection-end-line="88" selection-end-column="71" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -63,24 +59,10 @@
       <file leaf-file-name="MessagesWritable.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/depold/MessagesWritable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="17" column="50" selection-start-line="17" selection-start-column="50" selection-end-line="17" selection-end-column="50" />
+            <state relative-caret-position="435">
+              <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="THALS.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/depold/THALS.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1764">
-              <caret line="119" column="42" selection-start-line="119" selection-start-column="42" selection-end-line="119" selection-end-column="42" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#3584#3585#0" expanded="true" />
-                <element signature="e#3636#3637#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -89,9 +71,21 @@
       <file leaf-file-name="Nodo.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/depold/Nodo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
+            <state relative-caret-position="390">
               <caret line="40" column="19" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#461#462#0" expanded="false" />
+                <element signature="e#490#491#0" expanded="false" />
+                <element signature="e#534#535#0" expanded="false" />
+                <element signature="e#570#571#0" expanded="false" />
+                <element signature="e#601#602#0" expanded="false" />
+                <element signature="e#626#627#0" expanded="false" />
+                <element signature="e#662#663#0" expanded="false" />
+                <element signature="e#690#691#0" expanded="false" />
+                <element signature="e#1251#1252#0" expanded="false" />
+                <element signature="e#1301#1302#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -99,19 +93,21 @@
       <file leaf-file-name="DepoldMaster.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/depold/DepoldMaster.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="38" column="9" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
+            <state relative-caret-position="562">
+              <caret line="95" column="21" selection-start-line="95" selection-start-column="21" selection-end-line="95" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DepoldInputFormat.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/depold/DepoldInputFormat.java">
+      <file leaf-file-name="THALS.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/depold/THALS.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="972">
-              <caret line="88" column="71" selection-start-line="88" selection-start-column="71" selection-end-line="88" selection-end-column="71" />
-              <folding />
+            <state relative-caret-position="712">
+              <caret line="104" column="0" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -138,10 +134,10 @@
         <option value="$PROJECT_DIR$/src/depold/Nodo.java" />
         <option value="$PROJECT_DIR$/src/depold/LongArrayWritable.java" />
         <option value="$PROJECT_DIR$/src/depold/Store_value.java" />
+        <option value="$PROJECT_DIR$/src/depold/DepoldInputFormat.java" />
+        <option value="$PROJECT_DIR$/src/depold/THALS.java" />
         <option value="$PROJECT_DIR$/src/depold/MessagesWritable.java" />
         <option value="$PROJECT_DIR$/src/depold/DepoldMaster.java" />
-        <option value="$PROJECT_DIR$/src/depold/THALS.java" />
-        <option value="$PROJECT_DIR$/src/depold/DepoldInputFormat.java" />
         <option value="$PROJECT_DIR$/src/depold/Depold.java" />
       </list>
     </option>
@@ -153,10 +149,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="65" />
-    <option name="y" value="24" />
-    <option name="width" value="1855" />
-    <option name="height" value="1056" />
+    <option name="y" value="27" />
+    <option name="width" value="1920" />
+    <option name="height" value="1053" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -199,6 +194,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -240,35 +236,21 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Depold" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Depold" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="out" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccPhaseMasterCompute.java" />
+    <property name="last_opened_file_path" value="$USER_HOME$/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccPhaseMasterCompute.java" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="js-jscs-nodeInterpreter" value="/usr/bin/node" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -713,42 +695,44 @@
       <workItem from="1465808960899" duration="11426000" />
       <workItem from="1465829225594" duration="2176000" />
       <workItem from="1465831801182" duration="790000" />
+      <workItem from="1465899727531" duration="17921000" />
+      <workItem from="1465985260693" duration="17493000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="82905000" />
+    <option name="totallyTimeSpent" value="118319000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32832617" sideWeight="0.4936429" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3276414" sideWeight="0.4936429" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.49806523" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3390558" sideWeight="0.5063571" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.49806523" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2498618" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32939914" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -794,7 +778,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="3" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -803,21 +787,7 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/depold/DepoldMaster.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="828">
-          <caret line="51" column="26" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/io/formats/JsonLongDoubleFloatDoubleVertexInputFormat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="39" column="60" selection-start-line="39" selection-start-column="60" selection-end-line="39" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/io/formats/JsonLongDoubleFloatDoubleVertexInputFormat.java" />
     <entry file="file://$PROJECT_DIR$/src/depold/DepoldInputFormat.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="954">
@@ -826,96 +796,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccVertexValue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1296">
-          <caret line="98" column="53" selection-start-line="98" selection-start-column="53" selection-end-line="98" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccComputation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2484">
-          <caret line="167" column="32" selection-start-line="167" selection-start-column="32" selection-end-line="167" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/depold/Depold.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1062">
-          <caret line="69" column="102" selection-start-line="69" selection-start-column="102" selection-end-line="69" selection-end-column="102" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/depold/Nodo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/depold/MessagesWritable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1008">
-          <caret line="74" column="5" selection-start-line="74" selection-start-column="5" selection-end-line="74" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/depold/THALS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3584#3585#0" expanded="true" />
-            <element signature="e#3636#3637#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/depold/DepoldMaster.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="828">
-          <caret line="51" column="26" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/io/formats/JsonLongDoubleFloatDoubleVertexInputFormat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="39" column="60" selection-start-line="39" selection-start-column="60" selection-end-line="39" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/depold/DepoldInputFormat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="954">
-          <caret line="87" column="17" selection-start-line="87" selection-start-column="17" selection-end-line="87" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccVertexValue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1242">
-          <caret line="93" column="16" selection-start-line="93" selection-start-column="13" selection-end-line="93" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccVertexValue.java" />
     <entry file="file://$PROJECT_DIR$/src/depold/Depold.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="22" column="32" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#9409#9415#0" expanded="true" />
+            <element signature="e#9492#9498#0" expanded="true" />
+            <element signature="e#13073#13084#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -936,8 +826,6 @@
           <caret line="29" column="42" selection-start-line="29" selection-start-column="42" selection-end-line="29" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3584#3585#0" expanded="true" />
-            <element signature="e#3636#3637#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -950,206 +838,143 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccPhaseMasterCompute.java">
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccPhaseMasterCompute.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/SimpleShortestPathsComputation.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/io/formats/JsonLongDoubleFloatDoubleVertexInputFormat.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/io/formats/TextVertexInputFormat.java" />
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/lang/String.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/conf/ImmutableClassesGiraphConfiguration.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/graph/BasicComputation.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/graph/Vertex.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/io/VertexValueReader.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/graph/Computation.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/io/formats/TextVertexInputFormat.java" />
+    <entry file="jar://$USER_HOME$/Documenti/DistributedAlgorithms/hadoop-core-1.2.1.jar!/org/apache/hadoop/io/LongWritable.class" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/io/formats/JsonLongDoubleFloatDoubleVertexInputFormat.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/comm/WorkerClientRequestProcessor.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/graph/AbstractComputation.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/SimpleMasterComputeComputation.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/TestComputationStateComputation.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/SimpleAggregatorWriter.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/PageRankComputation.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/SimplePageRankComputation.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccPhaseMasterCompute.java" />
+    <entry file="file://$PROJECT_DIR$/src/depold/LongArrayWritable.java" />
+    <entry file="jar://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/target/giraph-1.1.0-for-hadoop-2.7.2-jar-with-dependencies.jar!/it/unimi/dsi/fastutil/longs/AbstractLongList.class" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/utils/ArrayWritable.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccVertexValue.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccComputation.java" />
+    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/SimpleShortestPathsComputation.java" />
+    <entry file="file://$PROJECT_DIR$/src/depold/Store_value.java" />
+    <entry file="file://$PROJECT_DIR$/src/depold/Nodo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="59" column="53" selection-start-line="38" selection-start-column="56" selection-end-line="59" selection-end-column="53" />
+        <state relative-caret-position="390">
+          <caret line="40" column="19" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#461#462#0" expanded="false" />
+            <element signature="e#490#491#0" expanded="false" />
+            <element signature="e#534#535#0" expanded="false" />
+            <element signature="e#570#571#0" expanded="false" />
+            <element signature="e#601#602#0" expanded="false" />
+            <element signature="e#626#627#0" expanded="false" />
+            <element signature="e#662#663#0" expanded="false" />
+            <element signature="e#690#691#0" expanded="false" />
+            <element signature="e#1251#1252#0" expanded="false" />
+            <element signature="e#1301#1302#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/SimpleShortestPathsComputation.java">
+    <entry file="jar://$USER_HOME$/giraph/giraph-core/target/giraph-1.1.0-for-hadoop-2.7.2-jar-with-dependencies.jar!/org/apache/giraph/graph/Vertex.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/giraph/giraph-core/src/main/java/org/apache/giraph/graph/Vertex.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
-          <caret line="38" column="56" selection-start-line="38" selection-start-column="56" selection-end-line="38" selection-end-column="56" />
+          <caret line="33" column="17" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/io/formats/JsonLongDoubleFloatDoubleVertexInputFormat.java">
+    <entry file="file://$USER_HOME$/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccVertexValue.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="864">
-          <caret line="79" column="34" selection-start-line="79" selection-start-column="34" selection-end-line="79" selection-end-column="34" />
+        <state relative-caret-position="-587">
+          <caret line="66" column="7" selection-start-line="66" selection-start-column="7" selection-end-line="66" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/io/formats/TextVertexInputFormat.java">
+    <entry file="jar:///usr/lib/jvm/java-8-jdk/src.zip!/java/util/HashMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5148">
-          <caret line="321" column="47" selection-start-line="321" selection-start-column="47" selection-end-line="321" selection-end-column="47" />
+        <state relative-caret-position="284">
+          <caret line="553" column="13" selection-start-line="553" selection-start-column="13" selection-end-line="553" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/lang/String.java">
+    <entry file="file://$USER_HOME$/giraph/giraph-core/src/main/java/org/apache/giraph/master/AggregatorToGlobalCommTranslation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="2591" column="45" selection-start-line="2591" selection-start-column="41" selection-end-line="2591" selection-end-column="45" />
+        <state relative-caret-position="302">
+          <caret line="78" column="32" selection-start-line="78" selection-start-column="32" selection-end-line="78" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/conf/ImmutableClassesGiraphConfiguration.java">
+    <entry file="file://$USER_HOME$/giraph/giraph-core/src/main/java/org/apache/giraph/master/MasterCompute.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="680" column="25" selection-start-line="680" selection-start-column="25" selection-end-line="680" selection-end-column="25" />
+        <state relative-caret-position="500">
+          <caret line="234" column="23" selection-start-line="234" selection-start-column="23" selection-end-line="234" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/graph/BasicComputation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/graph/Vertex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="45" column="23" selection-start-line="45" selection-start-column="23" selection-end-line="45" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/io/VertexValueReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="34" column="22" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/graph/Computation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1068">
-          <caret line="53" column="17" selection-start-line="53" selection-start-column="17" selection-end-line="53" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/io/formats/TextVertexInputFormat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5148">
-          <caret line="321" column="47" selection-start-line="321" selection-start-column="47" selection-end-line="321" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Documenti/DistributedAlgorithms/hadoop-core-1.2.1.jar!/org/apache/hadoop/io/LongWritable.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/io/formats/JsonLongDoubleFloatDoubleVertexInputFormat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="39" column="60" selection-start-line="39" selection-start-column="60" selection-end-line="39" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/comm/WorkerClientRequestProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-306">
-          <caret line="45" column="7" selection-start-line="45" selection-start-column="7" selection-end-line="45" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/graph/AbstractComputation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="426">
-          <caret line="161" column="39" selection-start-line="161" selection-start-column="39" selection-end-line="161" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/SimpleMasterComputeComputation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-970">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/TestComputationStateComputation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-610">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/SimpleAggregatorWriter.java">
+    <entry file="file://$USER_HOME$/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccComputation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/PageRankComputation.java">
+    <entry file="file://$USER_HOME$/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccPhaseMasterCompute.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="135" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/SimplePageRankComputation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3184">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccPhaseMasterCompute.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="38" column="21" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/depold/LongArrayWritable.java" />
-    <entry file="jar://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/target/giraph-1.1.0-for-hadoop-2.7.2-jar-with-dependencies.jar!/it/unimi/dsi/fastutil/longs/AbstractLongList.class">
+    <entry file="file://$USER_HOME$/giraph/giraph-core/src/main/java/org/apache/giraph/conf/ConfOptionType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
-          <caret line="41" column="16" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
+          <caret line="22" column="12" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/utils/ArrayWritable.java">
+    <entry file="file://$USER_HOME$/giraph/giraph-core/src/main/java/org/apache/giraph/conf/LongConfOption.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="69" column="14" selection-start-line="69" selection-start-column="14" selection-end-line="69" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccVertexValue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="738">
-          <caret line="65" column="33" selection-start-line="65" selection-start-column="33" selection-end-line="65" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/scc/SccComputation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="79" column="23" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-examples/src/main/java/org/apache/giraph/examples/SimpleShortestPathsComputation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="41" column="2" selection-start-line="41" selection-start-column="2" selection-end-line="43" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/depold/Store_value.java" />
-    <entry file="file://$PROJECT_DIR$/src/depold/Depold.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="260" column="26" selection-start-line="260" selection-start-column="26" selection-end-line="260" selection-end-column="26" />
+        <state relative-caret-position="498">
+          <caret line="63" column="32" selection-start-line="63" selection-start-column="32" selection-end-line="63" selection-end-column="32" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1850#1851#0" expanded="false" />
+            <element signature="e#1903#1904#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/depold/DepoldInputFormat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="88" column="71" selection-start-line="88" selection-start-column="71" selection-end-line="88" selection-end-column="71" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/depold/MessagesWritable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="17" column="50" selection-start-line="17" selection-start-column="50" selection-end-line="17" selection-end-column="50" />
+        <state relative-caret-position="435">
+          <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1158,37 +983,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/depold/THALS.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1764">
-          <caret line="119" column="42" selection-start-line="119" selection-start-column="42" selection-end-line="119" selection-end-column="42" />
+        <state relative-caret-position="712">
+          <caret line="104" column="0" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3584#3585#0" expanded="true" />
-            <element signature="e#3636#3637#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/depold/Nodo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="40" column="19" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/depold/DepoldMaster.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="38" column="9" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
+        <state relative-caret-position="562">
+          <caret line="95" column="21" selection-start-line="95" selection-start-column="21" selection-end-line="95" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/depold/DepoldInputFormat.java">
+    <entry file="file://$PROJECT_DIR$/src/depold/Depold.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="972">
-          <caret line="88" column="71" selection-start-line="88" selection-start-column="71" selection-end-line="88" selection-end-column="71" />
-          <folding />
+        <state relative-caret-position="585">
+          <caret line="317" column="26" selection-start-line="317" selection-start-column="26" selection-end-line="317" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#9409#9415#0" expanded="true" />
+            <element signature="e#9492#9498#0" expanded="true" />
+            <element signature="e#13073#13084#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1251,7 +1071,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>

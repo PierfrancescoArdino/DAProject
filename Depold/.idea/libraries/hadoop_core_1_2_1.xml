@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="hadoop-core-1.2.1">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Documenti/DistributedAlgorithms/hadoop-core-1.2.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/hadoop-core-1.2.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -17,7 +17,7 @@ import java.util.Map;
 public class THALS implements Writable{
     Map <Nodo,Nodo> two_hop; //map che ha come chiave il mio vicino(intermediario) e come valore il vicino two_hop
     String active; //per capire se io stesso sono stato filtrato o meno
-    int fase;
+
 
     Map<Nodo, DoubleWritable> similarity_map;
 
@@ -58,7 +58,7 @@ public class THALS implements Writable{
             e.getKey().write(dataOutput);
             e.getValue().write(dataOutput);
         }
-        dataOutput.writeInt(fase);
+
 
         WritableUtils.writeString(dataOutput,String.valueOf(similarity_map.size()));
         for (Map.Entry<Nodo,DoubleWritable> e : similarity_map.entrySet()){
@@ -82,7 +82,6 @@ public class THALS implements Writable{
                 addTwo_hop(key,value);
             }
         }
-        fase = dataInput.readInt();
 
         int dim = Integer.valueOf(WritableUtils.readString(dataInput));
         if(dim != 0) {
@@ -97,20 +96,11 @@ public class THALS implements Writable{
         }
     }
 
-    public THALS (){this.two_hop = new HashMap<>(); this.active = "true"; this.fase=0; this.similarity_map = new HashMap<>();}
+    public THALS (){this.two_hop = new HashMap<>(); this.active = "true"; this.similarity_map = new HashMap<>();}
     public THALS (HashMap two_hop, String active){
         this.two_hop = two_hop;
         this.active = active;
-        this.fase=0;
 
-    }
-
-    public int getFase() {
-        return fase;
-    }
-
-    public void setFase(int fase) {
-        this.fase = fase;
     }
 
     public Map<Nodo, DoubleWritable> getSimilarity_map() {

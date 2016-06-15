@@ -19,11 +19,13 @@ public class MessagesWritable implements Writable{
     LongArrayList vicini;
     String active; //per mandare un messaggio e segnalare che non sono più attivo
     Long ID;
+    LongArrayList eliminati;
 
 
     public MessagesWritable(){
         vicini = new LongArrayList();
         active = "true";
+        eliminati = new LongArrayList();
     }
 
     @Override
@@ -37,6 +39,13 @@ public class MessagesWritable implements Writable{
         }
         WritableUtils.writeString(dataOutput,active);
         dataOutput.writeLong(ID);
+        int dim = eliminati == null ? 0:eliminati.size();
+        dataOutput.writeInt(dim);
+        if(dim != 0){
+            for (Long v: eliminati){
+                dataOutput.writeLong(v);
+            }
+        }
 
     }
 
@@ -53,12 +62,22 @@ public class MessagesWritable implements Writable{
         active = WritableUtils.readString(dataInput);
         ID = dataInput.readLong();
 
+        int dim = dataInput.readInt();
+        eliminati.clear();
+        if (dim != 0){
+            for (int i=0; i<dim ; i++){
+                addEliminati(dataInput.readLong());
+            }
+        }
     }
 
     public void addVicini(long value){
         vicini.add(value);
     }
 
+    public void addEliminati(long value){
+        eliminati.add(value);
+    }
     public LongArrayList getVicini(){
         return vicini;
     }
@@ -79,6 +98,14 @@ public class MessagesWritable implements Writable{
         this.ID = ID;
     }
 
+
+    public LongArrayList getEliminati() {
+        return eliminati;
+    }
+
+    public void setEliminati(LongArrayList eliminati) {
+        this.eliminati = eliminati;
+    }
 
 
 
