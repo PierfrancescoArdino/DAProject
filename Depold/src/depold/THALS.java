@@ -1,14 +1,12 @@
 package depold;
 
 import org.apache.hadoop.io.*;
-import org.apache.hadoop.io.file.tfile.TFile;
-import org.apache.hadoop.util.ReflectionUtils;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,9 +15,10 @@ import java.util.Map;
 public class THALS implements Writable{
     Map <Nodo,Nodo> two_hop; //map che ha come chiave il mio vicino(intermediario) e come valore il vicino two_hop
     String active; //per capire se io stesso sono stato filtrato o meno
-
-
+    long group_id;
+    ArrayList<Nodo_Degree> comunita; //contiene l'id dei nodi appartententi alla stessa comunità e il grado del nodo
     Map<Nodo, DoubleWritable> similarity_map;
+    ArrayList<Nodo_Degree> comunita_filtrati;
 
     public Map<Nodo, Nodo> getTwo_hop() {
         return two_hop;
@@ -47,6 +46,10 @@ public class THALS implements Writable{
         this.similarity_map.put(key,value);
     }
 
+    public void addComunita(Nodo_Degree s){
+        comunita.add(s);
+    }
+    public void addComunita_filtrati(Nodo_Degree s) {comunita_filtrati.add(s);}
 
 
     @Override
@@ -64,6 +67,24 @@ public class THALS implements Writable{
         for (Map.Entry<Nodo,DoubleWritable> e : similarity_map.entrySet()){
             e.getKey().write(dataOutput);
             e.getValue().write(dataOutput);
+        }
+
+        dataOutput.writeLong(group_id);
+
+        int size = comunita == null ? 0 : comunita.size();
+        dataOutput.writeInt(size);
+        if (size != 0) {
+            for (Nodo_Degree v : comunita) {
+                v.write(dataOutput);
+            }
+        }
+
+        int dim = comunita_filtrati == null ? 0 : comunita_filtrati.size();
+        dataOutput.writeInt(dim);
+        if (dim != 0 ){
+            for(Nodo_Degree n : comunita_filtrati){
+                n.write(dataOutput);
+            }
         }
 
     }
@@ -94,14 +115,28 @@ public class THALS implements Writable{
                 addSimilarity_map(key,value);
             }
         }
+        long group_id = dataInput.readLong();
+        int d = dataInput.readInt();
+        comunita.clear();
+        if (size != 0) {
+            for (int i = 0; i < size; i++) {
+                Nodo_Degree s = new Nodo_Degree(dataInput.readLong(),dataInput.readLong());
+                addComunita(s);
+            }
+        }
+
+        int dime = dataInput.readInt();
+        comunita_filtrati.clear();
+        if(dime != 0){
+            for (int i=0; i<dime; i++){
+                Nodo_Degree s = new Nodo_Degree(dataInput.readLong(),dataInput.readLong());
+                addComunita_filtrati(s);
+            }
+        }
+
     }
 
-    public THALS (){this.two_hop = new HashMap<>(); this.active = "true"; this.similarity_map = new HashMap<>();}
-    public THALS (HashMap two_hop, String active){
-        this.two_hop = two_hop;
-        this.active = active;
-
-    }
+    public THALS (){this.two_hop = new HashMap<>(); this.active = "true"; this.similarity_map = new HashMap<>(); this.comunita= new ArrayList<>(); this.comunita_filtrati = new ArrayList<>();}
 
     public Map<Nodo, DoubleWritable> getSimilarity_map() {
         return similarity_map;
@@ -110,6 +145,33 @@ public class THALS implements Writable{
     public void setSimilarity_map(Map<Nodo, DoubleWritable> similarity_map) {
         this.similarity_map = similarity_map;
     }
+
+    public long getGroup_id() {
+        return group_id;
+    }
+
+    public void setGroup_id(long group_id) {
+        this.group_id = group_id;
+    }
+
+    public ArrayList<Nodo_Degree> getComunita() {
+        return comunita;
+    }
+
+    public void setComunita(ArrayList comunita) {
+        this.comunita = comunita;
+
+    }
+
+    public ArrayList<Nodo_Degree> getComunita_filtrati() {
+        return comunita_filtrati;
+    }
+
+    public void setComunita_filtrati(ArrayList<Nodo_Degree> comunita_filtrati) {
+        this.comunita_filtrati = comunita_filtrati;
+    }
+
+
 
 }
 

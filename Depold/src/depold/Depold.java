@@ -1,7 +1,5 @@
 package depold;
 
-import it.unimi.dsi.fastutil.longs.LongArrayList;
-import org.apache.giraph.conf.ConfOptionType;
 import org.apache.giraph.conf.LongConfOption;
 import org.apache.giraph.edge.Edge;
 import org.apache.giraph.edge.EdgeFactory;
@@ -11,11 +9,8 @@ import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.file.tfile.TFile;
-import org.apache.hadoop.yarn.util.SystemClock;
 
 import java.io.IOException;
-import java.security.BasicPermission;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -28,16 +23,6 @@ import static depold.DepoldMaster.*;
  */
 public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable, MessagesWritable>{
 
-   // private DepoldMaster.Phases currPhase;
-    //public MessagesWritable messageValue = new MessagesWritable();
-
-
-   /* @Override
-    public void preSuperstep() {
-        IntWritable phaseInt = getAggregatedValue(DepoldMaster.PHASE);
-        currPhase = DepoldMaster.getPhase(phaseInt);
-
-    }*/
    private DepoldMaster.Phases currPhase;
    public static final LongConfOption threshold =
            new LongConfOption("Depold.threshold", 1,
@@ -54,7 +39,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
     public void compute(Vertex<LongWritable, THALS, FloatWritable> vertex, Iterable<MessagesWritable> messages) throws IOException {
         THALS vertexValue = vertex.getValue();
         MessagesWritable messageValue = new MessagesWritable();
-        if(vertexValue.getActive().equals("true")){
+        if(vertexValue.getActive().equals("true") || currPhase == Phases.POST_PROCESSING_GROUP_DETECTOR){
 
             switch (currPhase){
                 /**
@@ -92,19 +77,11 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                         }
                     }
 
-                    /*for (Edge e : vertex.getEdges()){
-                        System.out.println("Archii di "+ vertex.getId()+ " : " + e.getTargetVertexId());
-                    }*/
                     for (Edge e : vertex.getEdges()){
                         messageValue.addVicini(Long.valueOf(e.getTargetVertexId().toString()));
                     }
                     messageValue.setID(Long.valueOf(vertex.getId().toString()));
-                    /*for (MessagesWritable m : messages) {
-                        System.out.println("Messaggi inviati da" + vertex.getId() + " a " + m.getID() + " vicini " + messageValue.getVicini());
-                        sendMessage(new LongWritable(m.getID()), messageValue);
-                    }*/
                     sendMessageToAllEdges(vertex,messageValue);
-                    //System.out.println("Sono : " +vertex.getId() + " sto finendo la fase : " + vertexValue.getFase());
                     vertex.setValue(vertexValue);
 
 
@@ -125,8 +102,6 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                         }
                     }
 
-                    /*if (!(x.toString().equals(vertex.getId().toString()))) {
-                    }*/
                     int test = ((int) threshold.get(getConf()));
 
                     if(vertex.getNumEdges() > test){
@@ -152,7 +127,6 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                  * FILTRAGGIO DEI NODI
                  */
                 case PRE_PROCESSING_SECOND_PHASE: {
-                    //System.out.println("Nella terza fase: " + vertex.getId());
                     for(MessagesWritable m : messages){
                         if(m.getActive().equals("false")) {
 
@@ -176,13 +150,11 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                  * calcolo della similarità
                  */
                 case CORE_PROCESSING_SIMILARITY_PHASE:
-                    /*for (Map.Entry m : vertexValue.two_hop.entrySet())
-                    {
-                        System.out.println("Entry di " + vertex.getId() + " e' : key " + m.getKey() + " value: " + m.getValue());
-                    }*/
+                    vertexValue.getSimilarity_map().clear();
                     for (Edge e : vertex.getEdges()){
                         vertexValue.addSimilarity_map(new Nodo((e.getTargetVertexId().toString()), "true"), new DoubleWritable(0));
                     }
+
                     for (Map.Entry e : vertexValue.getSimilarity_map().entrySet()){
                         for (Map.Entry t : vertexValue.getTwo_hop().entrySet()){
                             if (((Nodo)e.getKey()).getID().equals(((Nodo)t.getKey()).getID())){
@@ -196,32 +168,25 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
 
                             neighbor_of_neighbor = getNoN(((Nodo)e.getKey()).getID(), vertexValue.getTwo_hop());
                             double t = Similarity_calculator(vertexValue.getTwo_hop(), neighbor_of_neighbor, vertexValue.getSimilarity_map(), vertex.getId(), ((Nodo) e.getKey()).getID());
-                            //System.out.println(" t = " + t);
                             e.setValue(new DoubleWritable(t));
                         }
                     }
 
-
-
-
-                    for (Map.Entry e : vertexValue.getSimilarity_map().entrySet()){
-                        System.out.println("SIMILARITY del nodo : " + vertex.getId() + " key : " + e.getKey() + " value: " + e.getValue());
-                    }
                     vertex.setValue(vertexValue);
                     break;
+                /**
+                 * vengono eliminati i nodi nella two_hop e nella lista dei vicini
+                 */
                 case CORE_PROCESSING_TOPOLOGY_FIRST_PHASE: {
-                    //long p = similarity_limit.get(getConf());
                     ArrayList<Nodo> to_be_deleted_similarity = new ArrayList<Nodo>();
                     ArrayList<Nodo> to_be_deleted_two_hop = new ArrayList<Nodo>();
                     double limite = ((double) similarity_limit.get(getConf())) / 10.0;
                     int removed = 0;
-                    //System.out.println("Il numero degli archi del nodo: " + vertex.getId() + " PRIMA è: " + vertex.getNumEdges());
                     for (Map.Entry e : vertexValue.getSimilarity_map().entrySet()) {
                         Nodo key = (Nodo) e.getKey();
                         DoubleWritable value = ((DoubleWritable) e.getValue());
                         if (key.getActive().equals("true")) {
                             if (value.get() < limite) {
-                                //vertexValue.getSimilarity_map().remove(e.getKey());
                                 to_be_deleted_similarity.add(((Nodo) e.getKey()));
                                 messageValue.addEliminati(Long.valueOf(key.getID()));
                                 removed++;
@@ -244,16 +209,6 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                         for (Iterator<Map.Entry<Nodo,Nodo>> it = vertexValue.getTwo_hop().entrySet().iterator(); it.hasNext();) {
                             Map.Entry<Nodo,Nodo> k = it.next();
                             if (e.getID().equals(k.getKey().getID())) {
-                                /*Boolean trovato = false;
-                                for (Edge j : vertex.getEdges()) {
-                                    if (j.getTargetVertexId().toString().equals(k.getValue().getID())) {
-                                        trovato = true;
-                                        break;
-                                    }
-                                }
-                                if (trovato != true) {
-                                    sendMessage(new LongWritable(Long.valueOf(k.getValue().getID())), messageValue);
-                                }*/
                                 it.remove();
                             }
                         }
@@ -266,15 +221,16 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                     }
                     aggregate(DELETED_NODES, new IntWritable(removed));
                     vertex.setValue(vertexValue);
-                    //System.out.println("Message value " + messageValue.getEliminati() + " eliminati dal nodo " + vertex.getId() + " il limite era " + limite);
                     break;
                 }
+                /**
+                 * vengono eliminati i nodi restanti della two_hop
+                 */
                 case CORE_PROCESSING_TOPOLOGY_SECOND_PHASE:
                 {
                     Map<Nodo,Nodo> to_be_deleted = new HashMap<Nodo,Nodo>();
                     for (MessagesWritable m: messages)
                     {
-                        System.out.println("Sono " + vertex.getId() + " devo eliminare " + m.getEliminati() + " inviatomi da " + m.getID());
                         for(long deleted : m.getEliminati())
                         {
 
@@ -284,7 +240,6 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                                 Nodo value = ((Nodo)e.getValue());
                                 if (key.getActive().equals("true") && key.getID().equals(m.getID().toString()) && value.getActive().equals("true") && value.getID().equals(String.valueOf(deleted))){
                                     to_be_deleted.put(((Nodo) e.getKey()), ((Nodo) e.getValue()));
-                                    //vertexValue.getTwo_hop().remove(e.getKey());
                                 }
 
                             }
@@ -301,25 +256,179 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                             }
                         }
                     }
-                    for(Map.Entry e : vertexValue.getSimilarity_map().entrySet())
-                    {
-                        System.out.println(" vicini key " + e.getKey() + " nodo " + e.getValue() + " id " + vertex.getId());
-                    }
-                    for(Map.Entry e : vertexValue.getTwo_hop().entrySet())
-                    {
-                        System.out.println(" map two_hop key " + e.getKey() + " nodo " + e.getValue() + " id " + vertex.getId());
-                    }
                     vertex.setValue(vertexValue);
 
                     break;
                 }
-                case POST_PROCESSING:
+                case POST_PROCESSING_WCC_FIRST:{
+                    vertexValue.setGroup_id(vertex.getId().get());
+                    messageValue.setID(vertex.getId().get());
+                    messageValue.setGroup_id(vertex.getId().get());
+                    sendMessageToAllEdges(vertex, messageValue);
+                    vertex.setValue(vertexValue);
+                    break;
+                }
+                /**
+                 * calcolo delle componenti connesse
+                 */
+                case POST_PROCESSING_WCC_SECOND: {
+                    long minValue = vertexValue.getGroup_id();
+                    for (MessagesWritable m : messages) {
+                        if (m.getGroup_id() < minValue) {
+                            minValue = m.getGroup_id();
+                        }
+                    }
+                    if (minValue < vertexValue.getGroup_id()) {
+                        vertexValue.setGroup_id(minValue);
+                        messageValue.setID(vertex.getId().get());
+                        messageValue.setGroup_id(minValue);
+                        aggregate(WCC, new IntWritable(1));
+                        sendMessageToAllEdges(vertex, messageValue);
+                    }
+                    vertex.setValue(vertexValue);
+                    break;
+                }
+                case POST_PROCESSING_DEGREE_CALCULATOR_FIRST:{
+                    int vicini=0;
+
+                    for (Map.Entry e : vertexValue.getSimilarity_map().entrySet()){
+                        Nodo key = ((Nodo) e.getKey());
+                        if (key.getActive().equals("true")){
+                            vicini++;
+                            ArrayList<Nodo> tmp = getNoN(key.getID(),vertexValue.getTwo_hop());
+                            int size = tmp.size();
+                            vertexValue.addComunita(new Nodo_Degree(Long.valueOf(key.getID()),Long.valueOf((long)size)));
+                            messageValue.addElementiComunita(new Nodo_Degree(Long.valueOf(key.getID()),Long.valueOf((long)size)));
+                        }
+                    }
+                    if (vicini >0){
+                        vertexValue.addComunita(new Nodo_Degree(new Long(vertex.getId().get()),new Long((long)vicini)));}
+                    else{
+                        vertexValue.addComunita(new Nodo_Degree(new Long(vertex.getId().get()),new Long(1)));
+                    }
+
+                    messageValue.setID(vertex.getId().get());
+                    vertex.setValue(vertexValue);
+                    sendMessageToAllEdges(vertex,messageValue);
+                    break;
+                }
+                case POST_PROCESSING_DEGREE_CALCULATOR_SECOND:{
+                    int inseriti = 0;
+                    for (MessagesWritable m : messages){
+                        for (Nodo_Degree v : m.getElementi_comunita()){
+                            Boolean trovato = false;
+                            for (Nodo_Degree x : vertexValue.getComunita()){
+
+                                if(x.getId().longValue() == v.getId().longValue()){
+                                    trovato = true;
+                                }
+                            }
+                            if (!trovato){
+                                inseriti++;
+                                vertexValue.addComunita(v);
+                            }
+                        }
+                    }
+                    for (MessagesWritable m : messages){
+                        for (Nodo_Degree v:m.getElementi_comunita()){
+                            Boolean trovato = false;
+                            for (Nodo_Degree f : messageValue.getElementi_comunita()){
+                                if (f.getId().longValue()==v.getId().longValue()){
+                                    trovato = true;
+                                }
+                            }
+                            if (!trovato){
+                                messageValue.addElementiComunita(v);
+                            }
+                        }
+                    }
+                    aggregate(GROUP_DEGREE, new IntWritable(inseriti));
+                    messageValue.setID(vertex.getId().get());
+                    vertex.setValue(vertexValue);
+                    sendMessageToAllEdges(vertex, messageValue);
+
+                    break;
+                }
+                case POST_PROCESSING_DEGREE_CALCULATOR_THIRD:{
+
+                    int total_degree=0;
+                    for(Nodo_Degree v : vertexValue.getComunita()){
+                        total_degree=total_degree + v.getDegree().intValue();
+                    }
+                    double degree_media=0.0d;
+                    degree_media = total_degree/vertexValue.getComunita().size();
+
+                    messageValue.setElementi_comunita(vertexValue.getComunita());
+                    messageValue.setGroup_id(vertexValue.getGroup_id());
+                    messageValue.setID(vertex.getId().get());
+
+                    for (Map.Entry m : vertexValue.getSimilarity_map().entrySet()){
+                        if(((Nodo) m.getKey()).getActive().equals("false")){
+                            sendMessage(new LongWritable(Long.valueOf(((Nodo) m.getKey()).getID())),messageValue);
+                        }
+                    }
+                    break;
+                }
+                case POST_PROCESSING_GROUP_DETECTOR:{
+                    if (vertexValue.getActive().equals("false")){
+                        vertexValue.setActive("true");
+                    } else {
+                        int vicini_true=0;
+
+                        for(Map.Entry m : vertexValue.getSimilarity_map().entrySet()){
+                            if(((Nodo) m.getKey()).getActive().equals("false")){
+                                ((Nodo) m.getKey()).setActive("true");
+                            } else {
+                                vicini_true++;
+                            }
+                        }
+                        vertexValue.addComunita_filtrati(new Nodo_Degree((new Long( vertexValue.getGroup_id())), new Long(vicini_true)));
+                        for(Map.Entry m : vertexValue.getTwo_hop().entrySet()){
+                            if((((Nodo) m.getKey()).getActive().equals("false")) || (((Nodo) m.getValue()).getActive().equals("false"))){
+                                ((Nodo) m.getKey()).setActive("true");
+                                ((Nodo) m.getValue()).setActive("true");
+                            }
+                        }
+                    }
+
+                    ArrayList<Long> comunita_viste = new ArrayList<>();
+                    for (MessagesWritable m : messages) {
+                        if (!comunita_viste.contains(new Long(m.getGroup_id().longValue()))) {
+                            comunita_viste.add(new Long(m.getGroup_id().longValue()));
+                            double grado = 0d;
+                            double grado_community = 0d;
+                            for (Nodo_Degree n : m.getElementi_comunita()) {
+                                for (Edge e : vertex.getEdges()) {
+                                    if (e.getTargetVertexId().toString().equals(n.getId().toString())) {
+                                        grado++;
+                                    }
+                                }
+                                grado_community += n.getDegree().doubleValue();
+
+                            }
+                            double average_degree = grado_community / m.getElementi_comunita().size();
+                            if(grado>average_degree){
+                                vertexValue.addComunita_filtrati(new Nodo_Degree(new Long(m.getGroup_id().longValue()), new Long((long) grado)));
+                                messageValue.setElementi_comunita(m.getElementi_comunita());
+                                messageValue.addElementiComunita(new Nodo_Degree(new Long(vertex.getId().get()), new Long(((long) grado))));
+                                messageValue.setID(vertex.getId().get());
+                                sendMessage(new LongWritable(m.getID()),messageValue);
+                            }
+
+                        }
+                    }
+                    break;
+                }
+                case POST_PROCESSING_COMPUTE_COMMUNITIES:{
                     vertex.voteToHalt();
                     break;
+                }
+
             }
         }
         else
         {
+
             vertex.voteToHalt();
         }
 
@@ -357,18 +466,16 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                 d++;
             }
         }
-        /*Boolean trovato = false;
+        Boolean trovato = false;
         for (Object e : two_hop.entrySet())
         {
             Nodo e_key = ((Nodo)((Map.Entry)e).getKey());
             Nodo e_value = ((Nodo)((Map.Entry)e).getValue());
-            System.out.println("Sono id " + id + " key " + e_key + " value " + e_value);
             if(e_value.getID().equals(vicino) && e_value.getActive().equals("true") && e_key.getActive().equals("true"))
             {
-                System.out.println("Sono qui");
-                trovato = true;
+               trovato = true;
             }
-        }*/
+        }
         ArrayList<Nodo> common_nodes = new ArrayList<>();
         int q = 0;
         /**
@@ -387,27 +494,27 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                 }
             }
         }
-        p = common_nodes.size();
-        /*for (Nodo x : common_nodes){
-            System.out.println("Common nodes tra: " + id + " e " + vicino +" è: " + x);
-        }*/
+        if (trovato == true) {
+            p = common_nodes.size();
+        }
         for (Nodo c : common_nodes) {
             for (Object k : getNoN(c.getID(), two_hop)) {
-                //System.out.println("k : " + k.toString()+ " common:nodes " + common_nodes);
                 for (Nodo j : common_nodes) {
                     if (j.getID().equals(((Nodo) k).getID())) {
-                        // System.out.println(" Sono nell'if ");
                         q = q + 1;
                     }
                 }
             }
             p = p + q / 2;
         }
-
         tmp = getNoN(vicino, two_hop);
-        d = d + tmp.size();
+        if(trovato==true)
+        {
+            d = 1 + Math.min((int)d, tmp.size());
+        }
+        else{
+        d = d + tmp.size();}
         double res = p/d;
-        //System.out.println("P : " + p + " D : " + d + " tmp " + tmp + " id " + id + " vicino " + vicino + " res " + res);
         return res;
     }
 }

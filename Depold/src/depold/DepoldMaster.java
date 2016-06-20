@@ -19,30 +19,20 @@ public class DepoldMaster extends DefaultMasterCompute {
             new LongConfOption("Depold.converge", 1,
                     "converge threshold");
 
-    /**
-     * Aggregator that stores the current phase
-     */
     public static final String PHASE = "scccompute.phase";
 
-    /**
-     * Flags whether a new maximum was found in the Forward Traversal phase
-     */
     public static final String DELETED_NODES = "scccompute.max";
 
-    /**
-     * Flags whether a vertex converged in the Backward Traversal phase
-     */
-    public static final String CONVERGED = "scccompute.converged";
+    public static final String WCC = "depold.wcc";
+    public static final String GROUP_DEGREE = "depold.group_degree";
 
-    /**
-     * Enumerates the possible phases of the algorithm.
-     */
     public enum Phases {
         PRE_PROCESSING_TWO_HOP_FIRST_PHASE, PRE_PROCESSING_TWO_HOP_SECOND_PHASE,
         PRE_PROCESSING_TWO_HOP_THIRD_PHASE,
         PRE_PROCESSING_SECOND_PHASE,
         CORE_PROCESSING_SIMILARITY_PHASE, CORE_PROCESSING_TOPOLOGY_FIRST_PHASE, CORE_PROCESSING_TOPOLOGY_SECOND_PHASE,
-        POST_PROCESSING
+        POST_PROCESSING_WCC_FIRST, POST_PROCESSING_WCC_SECOND, POST_PROCESSING_DEGREE_CALCULATOR_FIRST, POST_PROCESSING_DEGREE_CALCULATOR_SECOND,POST_PROCESSING_DEGREE_CALCULATOR_THIRD,
+        POST_PROCESSING_GROUP_DETECTOR, POST_PROCESSING_COMPUTE_COMMUNITIES
     };
 
     @Override
@@ -50,6 +40,8 @@ public class DepoldMaster extends DefaultMasterCompute {
             IllegalAccessException {
         registerPersistentAggregator(PHASE, IntSumAggregator.class);
         registerPersistentAggregator(DELETED_NODES, IntSumAggregator.class);
+        registerAggregator(WCC, IntSumAggregator.class);
+        registerAggregator(GROUP_DEGREE,IntSumAggregator.class);
     }
 
     @Override
@@ -57,10 +49,12 @@ public class DepoldMaster extends DefaultMasterCompute {
         if (getSuperstep() == 0) {
             setPhase(Phases.PRE_PROCESSING_TWO_HOP_FIRST_PHASE);
             setAggregatedValue(DELETED_NODES,new IntWritable(0));
+            setAggregatedValue(WCC, new IntWritable(1));
+            setAggregatedValue(GROUP_DEGREE, new IntWritable(1));
         } else {
             Phases currPhase = getPhase();
             int converge_value = ((int) converge.get(getConf()));
-            //System.out.println("phase " + currPhase + " max ad cazzum " + m.get());
+            System.out.println("la fase in cui mi trovo e' " + currPhase);
             switch (currPhase) {
                 case PRE_PROCESSING_TWO_HOP_FIRST_PHASE:
                     setPhase(Phases.PRE_PROCESSING_TWO_HOP_SECOND_PHASE);
@@ -82,20 +76,48 @@ public class DepoldMaster extends DefaultMasterCompute {
                     break;
                 case CORE_PROCESSING_TOPOLOGY_SECOND_PHASE:
                     IntWritable tmp = getAggregatedValue(DELETED_NODES);
-                    System.out.println("i nodi eliminati sono " + tmp);
                     int m = tmp.get()/2;
                     if(converge_value>m)
                     {
                         setAggregatedValue(DELETED_NODES, new IntWritable(0));
-                        setPhase((Phases.POST_PROCESSING));
+                        setPhase((Phases.POST_PROCESSING_WCC_FIRST));
                     }
                     else{
-                        System.out.println("conv value " + converge_value + " del values " + m);
                         setPhase(Phases.CORE_PROCESSING_SIMILARITY_PHASE);
                         setAggregatedValue(DELETED_NODES, new IntWritable(0));
                     }
                     break;
-                case POST_PROCESSING:
+                case POST_PROCESSING_WCC_FIRST:
+                    setPhase(Phases.POST_PROCESSING_WCC_SECOND);
+                    break;
+                case POST_PROCESSING_WCC_SECOND:
+                    IntWritable wcc = getAggregatedValue(WCC);
+                    if(wcc.get() == 0){
+                        setPhase(Phases.POST_PROCESSING_DEGREE_CALCULATOR_FIRST);
+                    } else {
+                        setPhase((Phases.POST_PROCESSING_WCC_SECOND));
+                        setAggregatedValue(WCC, new IntWritable(0));
+                    }
+                    break;
+                case POST_PROCESSING_DEGREE_CALCULATOR_FIRST:
+                    setPhase(Phases.POST_PROCESSING_DEGREE_CALCULATOR_SECOND);
+                    break;
+                case POST_PROCESSING_DEGREE_CALCULATOR_SECOND:
+                    IntWritable degree = getAggregatedValue(GROUP_DEGREE);
+                    System.out.println("Degree e' " + degree);
+                    if(degree.get() == 0){
+                        setPhase(Phases.POST_PROCESSING_DEGREE_CALCULATOR_THIRD);
+                    } else {
+                        setPhase(Phases.POST_PROCESSING_DEGREE_CALCULATOR_SECOND);
+                    }
+                    break;
+                case POST_PROCESSING_DEGREE_CALCULATOR_THIRD:
+                    setPhase(Phases.POST_PROCESSING_GROUP_DETECTOR);
+                    break;
+                case POST_PROCESSING_GROUP_DETECTOR:
+                    setPhase(Phases.POST_PROCESSING_COMPUTE_COMMUNITIES);
+                    break;
+                case POST_PROCESSING_COMPUTE_COMMUNITIES:
                     break;
                 default :
                     break;

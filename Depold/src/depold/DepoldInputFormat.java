@@ -37,12 +37,6 @@ import com.google.common.collect.Lists;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * VertexInputFormat that features <code>long</code> vertex ID's,
- * <code>double</code> vertex values and <code>float</code>
- * out-edge weights, and <code>double</code> message types,
- *  specified in JSON format.
- */
 public class DepoldInputFormat extends
         TextVertexInputFormat<LongWritable, THALS, FloatWritable> {
 
@@ -52,17 +46,6 @@ public class DepoldInputFormat extends
         return new DepoldVertexReader();
     }
 
-    /**
-     * VertexReader that features <code>double</code> vertex
-     * values and <code>float</code> out-edge weights. The
-     * files should be in the following JSON format:
-     * JSONArray(<vertex id>, <vertex value>,
-     *   JSONArray(JSONArray(<dest vertex id>, <edge value>), ...))
-     * Here is an example with vertex id 1, vertex value 4.3, and two edges.
-     * First edge has a destination vertex 2, edge value 2.1.
-     * Second edge has a destination vertex 3, edge value 0.7.
-     * [1,4.3,[[2,2.1],[3,0.7]]]
-     */
     class DepoldVertexReader extends
             TextVertexReaderFromEachLineProcessedHandlingExceptions<JSONArray,
                     JSONException> {

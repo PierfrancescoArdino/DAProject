@@ -1,15 +1,13 @@
 package depold;
 
 import it.unimi.dsi.fastutil.longs.LongArrayList;
-import org.apache.giraph.utils.ArrayListWritable;
-import org.apache.giraph.utils.ArrayWritable;
-import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.io.WritableUtils;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 /**
@@ -20,12 +18,15 @@ public class MessagesWritable implements Writable{
     String active; //per mandare un messaggio e segnalare che non sono più attivo
     Long ID;
     LongArrayList eliminati;
-
+    Long group_id;
+    ArrayList<Nodo_Degree> elementi_comunita;
 
     public MessagesWritable(){
         vicini = new LongArrayList();
         active = "true";
         eliminati = new LongArrayList();
+        group_id = new Long(0);
+        elementi_comunita = new ArrayList<>();
     }
 
     @Override
@@ -47,6 +48,15 @@ public class MessagesWritable implements Writable{
             }
         }
 
+        dataOutput.writeLong(group_id);
+
+        int d = elementi_comunita == null ? 0 : elementi_comunita.size();
+        dataOutput.writeInt(d);
+        if (d != 0){
+            for (Nodo_Degree s : elementi_comunita){
+                s.write(dataOutput);
+            }
+        }
     }
 
     @Override
@@ -56,7 +66,6 @@ public class MessagesWritable implements Writable{
         if (size != 0) {
             for (int i = 0; i < size; i++) {
                 addVicini(dataInput.readLong());
-                //System.out.println("Vicini : " + getVicini());
             }
         }
         active = WritableUtils.readString(dataInput);
@@ -69,6 +78,16 @@ public class MessagesWritable implements Writable{
                 addEliminati(dataInput.readLong());
             }
         }
+        group_id = dataInput.readLong();
+
+        int d = dataInput.readInt();
+        elementi_comunita.clear();
+        if (d != 0 ){
+            for (int i=0; i<d; i++){
+                Nodo_Degree tmp = new Nodo_Degree(dataInput.readLong(),dataInput.readLong());
+                addElementiComunita(tmp);
+            }
+        }
     }
 
     public void addVicini(long value){
@@ -78,6 +97,8 @@ public class MessagesWritable implements Writable{
     public void addEliminati(long value){
         eliminati.add(value);
     }
+
+    public void addElementiComunita(Nodo_Degree s ) { elementi_comunita.add(s);}
     public LongArrayList getVicini(){
         return vicini;
     }
@@ -105,6 +126,24 @@ public class MessagesWritable implements Writable{
 
     public void setEliminati(LongArrayList eliminati) {
         this.eliminati = eliminati;
+    }
+
+
+    public Long getGroup_id() {
+        return group_id;
+    }
+
+    public void setGroup_id(Long group_id) {
+        this.group_id = group_id;
+    }
+
+
+    public ArrayList<Nodo_Degree> getElementi_comunita() {
+        return elementi_comunita;
+    }
+
+    public void setElementi_comunita(ArrayList<Nodo_Degree> elementi_comunita) {
+        this.elementi_comunita = elementi_comunita;
     }
 
 
