@@ -11,20 +11,21 @@ import org.apache.hadoop.io.IntWritable;
 import javax.sound.midi.SysexMessage;
 
 /**
- * Created by mariapia on 04/06/16.
+ * Created by
+ * Ardino Pierfrancesco
+ * Natale Maria Pia
+ * Tovo Alessia
+ *
+ * class used to switch between phases
  */
 public class DepoldMaster extends DefaultMasterCompute {
 
-    public static final LongConfOption converge =
-            new LongConfOption("Depold.converge", 1,
-                    "converge threshold");
-
-    public static final String PHASE = "scccompute.phase";
-
-    public static final String DELETED_NODES = "scccompute.max";
-
+    public static final String PHASE = "depold.phase";
+    public static final String DELETED_NODES = "depold.deleted_nodes";
     public static final String WCC = "depold.wcc";
     public static final String GROUP_DEGREE = "depold.group_degree";
+    public static final LongConfOption converge = new LongConfOption("Depold.converge", 1, "converge threshold");
+
 
     public enum Phases {
         PRE_PROCESSING_TWO_HOP_FIRST_PHASE, PRE_PROCESSING_TWO_HOP_SECOND_PHASE,
@@ -36,8 +37,7 @@ public class DepoldMaster extends DefaultMasterCompute {
     };
 
     @Override
-    public void initialize() throws InstantiationException,
-            IllegalAccessException {
+    public void initialize() throws InstantiationException, IllegalAccessException {
         registerPersistentAggregator(PHASE, IntSumAggregator.class);
         registerPersistentAggregator(DELETED_NODES, IntSumAggregator.class);
         registerAggregator(WCC, IntSumAggregator.class);
@@ -54,7 +54,7 @@ public class DepoldMaster extends DefaultMasterCompute {
         } else {
             Phases currPhase = getPhase();
             int converge_value = ((int) converge.get(getConf()));
-            System.out.println("la fase in cui mi trovo e' " + currPhase);
+
             switch (currPhase) {
                 case PRE_PROCESSING_TWO_HOP_FIRST_PHASE:
                     setPhase(Phases.PRE_PROCESSING_TWO_HOP_SECOND_PHASE);
@@ -104,7 +104,7 @@ public class DepoldMaster extends DefaultMasterCompute {
                     break;
                 case POST_PROCESSING_DEGREE_CALCULATOR_SECOND:
                     IntWritable degree = getAggregatedValue(GROUP_DEGREE);
-                    System.out.println("Degree e' " + degree);
+
                     if(degree.get() == 0){
                         setPhase(Phases.POST_PROCESSING_DEGREE_CALCULATOR_THIRD);
                     } else {
@@ -115,9 +115,6 @@ public class DepoldMaster extends DefaultMasterCompute {
                     setPhase(Phases.POST_PROCESSING_GROUP_DETECTOR);
                     break;
                 case POST_PROCESSING_GROUP_DETECTOR:
-                    setPhase(Phases.POST_PROCESSING_COMPUTE_COMMUNITIES);
-                    break;
-                case POST_PROCESSING_COMPUTE_COMMUNITIES:
                     break;
                 default :
                     break;
@@ -125,31 +122,15 @@ public class DepoldMaster extends DefaultMasterCompute {
         }
     }
 
-    /**
-     * Sets the next phase of the algorithm.
-     * @param phase
-     *          Next phase.
-     */
     private void setPhase(Phases phase) {
         setAggregatedValue(PHASE, new IntWritable(phase.ordinal()));
     }
 
-    /**
-     * Get current phase.
-     * @return Current phase as enumerator.
-     */
     private Phases getPhase() {
         IntWritable phaseInt = getAggregatedValue(PHASE);
         return getPhase(phaseInt);
     }
 
-    /**
-     * Helper function to convert from internal aggregated value to a Phases
-     * enumerator.
-     * @param phaseInt
-     *          An integer that matches a position in the Phases enumerator.
-     * @return A Phases' item for the given position.
-     */
     public static Phases getPhase(IntWritable phaseInt) {
         return Phases.values()[phaseInt.get()];
     }

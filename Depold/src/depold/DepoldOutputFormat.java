@@ -26,7 +26,6 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.io.WritableComparable;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;
-import org.apache.hadoop.yarn.webapp.hamlet.HamletSpec;
 
 /**
  * Write out Vertices' IDs and values, but not their edges nor edges' values.
@@ -85,13 +84,13 @@ public class DepoldOutputFormat<I extends WritableComparable,
             if (reverseOutput) {
                 str.append(vertex.getValue().toString());
                 str.append(delimiter);
-                if (vertexValue.getComunita_filtrati().size()==0)
+                if (vertexValue.getCommunity_filtered_node().size()==0)
                 {
                     str.append(String.valueOf(((THALS) vertex.getValue()).group_id));
                 }
                 else
                 {
-                    for(Nodo_Degree n : vertexValue.getComunita_filtrati())
+                    for(Node_Degree n : vertexValue.getCommunity_filtered_node())
                     {
                         str.append(n.getId().toString());
                         str.append(delimiter);
@@ -101,13 +100,13 @@ public class DepoldOutputFormat<I extends WritableComparable,
                 str.append(vertex.getId().toString());
                 str.append(delimiter);
 
-                if (vertexValue.getComunita_filtrati().size()==0)
+                if (vertexValue.getCommunity_filtered_node().size()==0)
                 {
                     str.append(String.valueOf(((THALS) vertex.getValue()).group_id));
                 }
                 else
                 {
-                    for(Nodo_Degree n : vertexValue.getComunita_filtrati())
+                    for(Node_Degree n : vertexValue.getCommunity_filtered_node())
                     {
                         str.append(n.getId().toString());
                         str.append(delimiter);

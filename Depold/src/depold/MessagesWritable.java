@@ -11,49 +11,72 @@ import java.util.ArrayList;
 
 
 /**
- * Created by mariapia on 05/06/16.
+ * Created by 
+ * Ardino Pierfrancesco
+ * Natale Maria Pia
+ * Tovo Alessia
+ * 
+ * class used to exchange messages between nodes
  */
 public class MessagesWritable implements Writable{
-    LongArrayList vicini;
-    String active; //per mandare un messaggio e segnalare che non sono più attivo
+    /**
+     * variable used to send the ID of the sender node
+     */
     Long ID;
-    LongArrayList eliminati;
+    /**
+     * array used to send the list of neighbors
+     */
+    LongArrayList neighbors;
+    /**
+     * variable used to send the status of the node
+     */
+    String active;
+    /**
+     * array used to send the ID of the deleted nodes
+     */
+    LongArrayList deleted_nodes;
+    /**
+     * variable used to send the ID of the community which the node belongs
+     */
     Long group_id;
-    ArrayList<Nodo_Degree> elementi_comunita;
+    /**
+     * array used to send the members of the community which the node belongs
+     */
+    ArrayList<Node_Degree> community_members;
 
     public MessagesWritable(){
-        vicini = new LongArrayList();
+        neighbors = new LongArrayList();
         active = "true";
-        eliminati = new LongArrayList();
+        deleted_nodes = new LongArrayList();
         group_id = new Long(0);
-        elementi_comunita = new ArrayList<>();
+        community_members = new ArrayList<>();
     }
 
     @Override
     public void write(DataOutput dataOutput) throws IOException {
-        int size = vicini == null ? 0 : vicini.size();
+        int size = neighbors == null ? 0 : neighbors.size();
         dataOutput.writeInt(size);
         if (size != 0) {
-            for (Long v : vicini) {
+            for (Long v : neighbors) {
                 dataOutput.writeLong(v);
             }
         }
         WritableUtils.writeString(dataOutput,active);
         dataOutput.writeLong(ID);
-        int dim = eliminati == null ? 0:eliminati.size();
+        int dim = deleted_nodes == null ? 0:deleted_nodes.size();
         dataOutput.writeInt(dim);
         if(dim != 0){
-            for (Long v: eliminati){
+            for (Long v: deleted_nodes){
                 dataOutput.writeLong(v);
             }
         }
 
         dataOutput.writeLong(group_id);
 
-        int d = elementi_comunita == null ? 0 : elementi_comunita.size();
+        int d = community_members == null ? 0 : community_members.size();
         dataOutput.writeInt(d);
         if (d != 0){
-            for (Nodo_Degree s : elementi_comunita){
+            for (Node_Degree s : community_members){
                 s.write(dataOutput);
             }
         }
@@ -62,45 +85,46 @@ public class MessagesWritable implements Writable{
     @Override
     public void readFields(DataInput dataInput) throws IOException {
         int size = dataInput.readInt();
-        vicini.clear();
+        neighbors.clear();
         if (size != 0) {
             for (int i = 0; i < size; i++) {
-                addVicini(dataInput.readLong());
+                addNeighbors(dataInput.readLong());
             }
         }
         active = WritableUtils.readString(dataInput);
         ID = dataInput.readLong();
 
         int dim = dataInput.readInt();
-        eliminati.clear();
+        deleted_nodes.clear();
         if (dim != 0){
             for (int i=0; i<dim ; i++){
-                addEliminati(dataInput.readLong());
+                addDeleted_nodes(dataInput.readLong());
             }
         }
         group_id = dataInput.readLong();
 
         int d = dataInput.readInt();
-        elementi_comunita.clear();
+        community_members.clear();
         if (d != 0 ){
             for (int i=0; i<d; i++){
-                Nodo_Degree tmp = new Nodo_Degree(dataInput.readLong(),dataInput.readLong());
-                addElementiComunita(tmp);
+                Node_Degree tmp = new Node_Degree(dataInput.readLong(),dataInput.readLong());
+                addCommunity_members(tmp);
             }
         }
     }
 
-    public void addVicini(long value){
-        vicini.add(value);
+    public void addNeighbors(long value){
+        neighbors.add(value);
     }
 
-    public void addEliminati(long value){
-        eliminati.add(value);
+    public void addDeleted_nodes(long value){
+        deleted_nodes.add(value);
     }
 
-    public void addElementiComunita(Nodo_Degree s ) { elementi_comunita.add(s);}
-    public LongArrayList getVicini(){
-        return vicini;
+    public void addCommunity_members(Node_Degree s ) { community_members.add(s);}
+
+    public LongArrayList getNeighbors(){
+        return neighbors;
     }
 
     public String getActive() {
@@ -120,12 +144,12 @@ public class MessagesWritable implements Writable{
     }
 
 
-    public LongArrayList getEliminati() {
-        return eliminati;
+    public LongArrayList getDeleted_nodes() {
+        return deleted_nodes;
     }
 
-    public void setEliminati(LongArrayList eliminati) {
-        this.eliminati = eliminati;
+    public void setDeleted_nodes(LongArrayList deleted_nodes) {
+        this.deleted_nodes = deleted_nodes;
     }
 
 
@@ -138,12 +162,12 @@ public class MessagesWritable implements Writable{
     }
 
 
-    public ArrayList<Nodo_Degree> getElementi_comunita() {
-        return elementi_comunita;
+    public ArrayList<Node_Degree> getCommunity_members() {
+        return community_members;
     }
 
-    public void setElementi_comunita(ArrayList<Nodo_Degree> elementi_comunita) {
-        this.elementi_comunita = elementi_comunita;
+    public void setCommunity_members(ArrayList<Node_Degree> community_members) {
+        this.community_members = community_members;
     }
 
 
