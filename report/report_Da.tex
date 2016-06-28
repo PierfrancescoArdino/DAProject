@@ -118,8 +118,8 @@ The classes developed for this project are the following:
     This class stores information about a node in the Two-Hop adjacent list and in the Similarity map.
     The class is composed of two fields:
     \begin{itemize}
-            \item \emph{String} ID
-            \item \emph{String} active
+            \item \emph{Long} ID
+            \item \emph{Boolean} active
     \end{itemize}
     The ID field contains the Id of a node while the active field, which is initialized to \emph{true}, contains the status of a node.
 \subsubsection{Node\_Degree}
@@ -136,7 +136,7 @@ This class implements the THALS data structure with some changes.
 The class is composed of the following fields:
 \begin{itemize}
     \item \emph{Map$<$Node,Node$>$} two\_hop
-    \item \emph{String} active
+    \item \emph{Boolean} active
     \item \emph{Long} group\_id
     \item \emph{ArrayList$<$Node\_Degree$>$} community\_members
     \item \emph{Map$<$Node, DoubleWritable$>$} similarity\_map
@@ -158,7 +158,7 @@ It is composed of the following fields:
 \begin{itemize}
     \item \emph{Long} ID
     \item \emph{LongArrayList} neighbors
-    \item \emph{String} active
+    \item \emph{Boolean} active
     \item \emph{LongArrayList} deleted\_nodes
     \item \emph{Long} group\_id
     \item \emph{ArrayList$<$Node\_Degree$>$} community\_members
