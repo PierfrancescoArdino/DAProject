@@ -149,7 +149,7 @@ The class is composed of the following fields:
 This class is used to load the raw data and initialize the vertices and create the edges.
 Here we specify the type of the Id of the Vertex, \emph{LongWritable} in our case, the type of the data of the Vertex, \emph{THALS} in our case and the type of the data of the Edge, \emph{FloatWritable} in our case.
 \subsubsection{DepoldOutputFormat}
-This class is used to write the result of the algorithm to the HDFS, in the case of non filtered nodes it prints the Id of the nodes and the \emph{group\_id}, while in the case of filtered nodes it prints the id of the nodes and the list of its communities.
+This class is used to write the result of the algorithm to the HDFS, in the case of non filtered nodes it prints the \emph{Id} of the nodes and the \emph{group\_id}, while in the case of filtered nodes it prints the \emph{Id} of the nodes and the list of their communities.
 \subsubsection{DepoldMaster}
 The \emph{Compute method} of this class is the first thing that gets executed in a superstep, so it useful in combination of \emph{Aggregators} to manage the steps of the algorithm. An \emph{Aggregator} is used to check whether a global condition is satisfied or to keep some statistics. During a superstep, vertices provide values to aggregators. These values get aggregated by the system and the results become available to all vertices in the following superstep. We use five Aggregators to manage the phases of the algorithm, keeping track of how many nodes were filtered, keeping track of how many edges are deleted in the \emph{Coreprocessing} in order to check if the algorithm has converged, check if the \emph{WeaklyConnectedComponents} has converged and check if each node knows each node belonging to its community.
 \subsubsection{MessageWritable}
@@ -171,22 +171,22 @@ This is the most important class and the core of the system. The algorithm has 3
 \subsubsection{Preprocessing\_Two\_Hop\_First\_Phase}
 In this phase we compute the adjacency list of the node and send it to its neighbors.
 \subsubsection{Preprocessing\_Two\_Hop\_Second\_Phase}
-Since we expect that the input is an undirected graphs, in this phase we first check if the Id of the senders of the messages are already in the neighbors of the nodes, if they are not present we add them to the list in order to complete the undirected graphs.
-Then we forward the adjacency list received from my neighbors to all my neighbors so each node will know the neighbors of his neighbors.
+Since we expect that the input is an undirected graphs, in this phase we first check if the \emph{Id} of the senders of the messages are already in the neighbors list of the nodes, if they are not present we add them to the list in order to complete the undirected graph.
+Then we forward the adjacency list received from its neighbors to all its neighbors so each node will know the neighbors of his neighbors.
 \subsubsection{Preprocessing\_Two\_Hop\_Third\_Phase}
-In this phase we firstly compute the Two-hop adjacency list of the node, then we filter the nodes with a degree larger than the threshold $\theta$ setting the \emph{active} field to \emph{false} and finally send the status of the node to its neighbors.
+In this phase we firstly compute the \emph{Two\_hop\_map} of the node, then we filter the nodes with a degree larger than the threshold $\theta$ setting the \emph{active} field to \emph{false} and finally send the status of the node to its neighbors.
 \subsubsection{Preprocessing\_Second\_Phase}
-In this phase we simply deactivate the edges that connect an unfiltered node to a filtered node by setting the \emph{active} field of the key or the value of the two-hop adjacency list to \emph{false}.
+In this phase we simply deactivate the edges that connect an unfiltered node to a filtered node by setting the \emph{active} field of the key or of the value of the \emph{Two\_hop\_map} to \emph{false}.
 \subsection{Coreprocessing}
 \subsubsection{Coreprocessing\_Similarity\_Phase}
-In this phase we compute the similarity between a node and its active neighbors and put the values in the \emph{Similarity\_map}. We have noticed that result of the We have noticed that result of \Cref{eq:1} differs from the result of the algorithm used in the \emph{Coreprocessing} of \cite{6517336} in particular the \emph{CMPI S\_Calculator} which is showed below:
+In this phase we compute the similarity between a node and its active neighbors and put the values in the \emph{Similarity\_map}. We have noticed that the result of \Cref{eq:1} differs from the result of the algorithm used in the \emph{Coreprocessing} of \cite{6517336} in particular the \emph{CMPI S\_Calculator} which is showed below:
      \begin{figure}[H]
        \centering
          \includegraphics[width=0.7\textwidth]{similarity-code.png}
        \caption{CMPI S\_Calculator algorithm}
        \label{fig:depold}
      \end{figure}
-We decided to use the algorithm to compute the similarity with another change. In fact, we have noticed that
+We decided to use this algorithm to compute the similarity with another change. In fact, we have noticed that
 if $v\textsubscript{i}$ and $v\textsubscript{j}$ do not have common neighbors $S(v\textsubscript{i},v\textsubscript{j})$ can differ from  $S(v\textsubscript{j},v\textsubscript{i})$. I.e. if $v\textsubscript{i}$ has 3 neighbors and $v\textsubscript{j}$ has 2 neighbors but they do not have common neighbors the result using the algorithm would be:
 \begin{equation}
   S(v\textsubscript{i},v\textsubscript{j}) = \frac{1}{1 + d} = \frac{1}{4} = 0.25
@@ -201,22 +201,22 @@ We decided to use the minimum between the number of neighbors of the two nodes p
 \end{equation}
 where $\pi(i)$ is the number of neighbors of $v\textsubscript{i}$ and $\pi(j)$ is the number of neighbors of $v\textsubscript{j}$
 \subsubsection{Coreprocessing\_Topology\_First\_Phase}
-In the phase we check if the similarity values in the \emph{Similarity\_Map} are under the $\alpha$ threshold. If so we delete the edges connecting the nodes, delete the entries in both \emph{Two\_Hop\_map} and \emph{Similarity\_map}, updates the Aggregator that takes track of the deleted nodes and finally send the \emph{Deleted\_nodes} list to the neighbors of the node.
+In the phase we check if the similarity values in the \emph{Similarity\_Map} are under the $\alpha$ threshold. If so we delete the edges connecting the nodes, delete the entries in both \emph{Two\_Hop\_map} and \emph{Similarity\_map}, updates the Aggregator that takes track of the deleted nodes and finally send the \emph{Deleted\_nodes} list to the neighbors of the nodes.
 \subsubsection{Coreprocessing\_Topology\_Second\_Phase}
-In this phase we check if there are nodes in the \emph{deleted\_nodes} list sent by the neighbors of the node that have to be deleted in the \emph{Two\_Hop\_map}. In fact, it can be that some edges representing an entry in the \emph{Two\_Hop\_map} no longer exists and so we have to delete that entry. If at the end of this phase the number of deleted nodes are over the $\varphi$ threshold, we return to the beginning of the \emph{Coreprocessing} stage.
+In this phase we check if there are nodes in the \emph{Deleted\_nodes} list sent by the neighbors of the nodes that have to be deleted in the \emph{Two\_Hop\_map}. In fact, it can be that some edges representing an entry in the \emph{Two\_Hop\_map} no longer exists and so we have to delete that entry. If at the end of this phase the number of deleted nodes is over the $\varphi$ threshold, we return to the beginning of the \emph{Coreprocessing} stage.
 \subsection{Postprocessing}
 \subsubsection{Postprocessing\_WCC\_First}
 In this phase we initialize the algorithm to compute the \emph{Weakly Connected Components}. This algorithm is used to find the communities of the unfiltered nodes.
 \subsubsection{Postprocessing\_WCC\_Ssecond}
 In this phase we compute the WCC and we assign a \emph{group\_id} to each unfiltered node. The \emph{Postprocessing\_WCC} phase converges if no vertices change community.
 \subsubsection{Postprocessing\_Degree\_Calculator\_First}
-In this phase we add to the \emph{Community\_members} list all the active neighbors of a node and then we send this list to neighbors of the node.
+In this phase we add to the \emph{Community\_members} list all the active neighbors of a node and then we send this list to neighbors of the nodes.
 \subsubsection{Postprocessing\_Degree\_Calculator\_Second}
-In this phase we add to the \emph{Community\_members} list all nodes received from my neighbors which are not already in the list. Once we add the nodes to the list we send again the list to the neighbors of the nodes. The \emph{Postprocessing\_Degree\_Calculator} phase converges if no more nodes are added to the \emph{Community\_members} list.
+In this phase we add to the \emph{Community\_members} list all nodes received from the neighbors of a node which are not already in the list. Once we add the nodes to the list we send again the list to the neighbors of the nodes. The \emph{Postprocessing\_Degree\_Calculator} phase converges if no more nodes are added to the \emph{Community\_members} list.
 \subsubsection{Postprocessing\_Degree\_Calculator\_Third}
 In this phase we send the \emph{Community\_members} list to the neighbors which have been filtered in the \emph{Preprocessing} stage.
 \subsubsection{Postprocessing\_Group\_Detector}
-In this final phase the filtered nodes are merged into the existing communities. As said before, a filtered node can belong to more than one community. A filtered node belongs to a community if the number of neighbors of the node which belong to the community is larger than the average degree of that community. At the end of this stage, each unfiltered node has the \emph{group\_id} of the community to which it belongs, while each filtered node has the \emph{community\_filtered\_node} list of the communities to which it belongs.
+In this final phase the filtered nodes are merged into the existing communities. As said before, a filtered node can belong to more than one community. A filtered node belongs to a community if the number of its neighbors which belong to the community is larger than the average degree of that community. At the end of this stage, each unfiltered node has the \emph{group\_id} of the community to which it belongs, while each filtered node has the \emph{community\_filtered\_node} list of the communities to which it belongs.
 \section{Simulations and Results}
 \subsection{Assumption}
 The assumption made for the project are the following:
