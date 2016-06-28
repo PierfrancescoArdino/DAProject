@@ -27,7 +27,7 @@ public class THALS implements Writable{
     /**
      * variable used to activate and deactivate a node for filthering phase
      */
-    String active;
+    Boolean active;
     /**
      * variable used to store the id of the community which the node belongs
      */
@@ -52,11 +52,11 @@ public class THALS implements Writable{
         return two_hop;
     }
 
-    public String getActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(String active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
@@ -82,7 +82,7 @@ public class THALS implements Writable{
 
     @Override
     public void write(DataOutput dataOutput) throws IOException {
-        WritableUtils.writeString(dataOutput,active);
+        dataOutput.writeBoolean(active);
         WritableUtils.writeString(dataOutput,String.valueOf(two_hop.size()));
         for (Map.Entry<Node, Node> e : two_hop.entrySet()){
             e.getKey().write(dataOutput);
@@ -117,7 +117,7 @@ public class THALS implements Writable{
 
     @Override
     public void readFields(DataInput dataInput) throws IOException {
-        active = WritableUtils.readString(dataInput);
+        active = dataInput.readBoolean();
         int size = Integer.valueOf(WritableUtils.readString(dataInput));
         if(size != 0) {
             for (int i = 0; i < size; i++) {
@@ -164,7 +164,7 @@ public class THALS implements Writable{
 
     public THALS (){
         this.two_hop = new HashMap<>(); 
-        this.active = "true"; 
+        this.active = Boolean.TRUE;
         this.similarity_map = new HashMap<>(); 
         this.community_members= new ArrayList<>(); 
         this.community_filtered_node = new ArrayList<>();

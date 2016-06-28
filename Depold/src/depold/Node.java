@@ -19,48 +19,48 @@ import java.io.IOException;
  */
 
 public class Node implements Writable{
-    private String ID;
-    private String active = "true";
+    private Long ID;
+    private Boolean active = Boolean.TRUE;
 
-    public String getActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(String active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
 
 
-    public String getID() {
+    public Long getID() {
         return ID;
     }
 
-    public void setID(String ID) {
+    public void setID(Long ID) {
         this.ID = ID;
     }
 
     public Node(){}
 
-    public Node(String ID, String active){
+    public Node(Long ID, Boolean active){
         this.ID = ID;
         this.active = active;
     }
 
     @Override
     public void write(DataOutput dataOutput) throws IOException {
-        WritableUtils.writeString(dataOutput,ID);
-        WritableUtils.writeString(dataOutput,active);
+        dataOutput.writeLong(ID);
+        dataOutput.writeBoolean(active);
     }
 
     @Override
     public void readFields(DataInput dataInput) throws IOException {
-            ID = WritableUtils.readString(dataInput);
-            active = WritableUtils.readString(dataInput);
+            ID = dataInput.readLong();
+            active = dataInput.readBoolean();
     }
 
     @Override
     public String toString(){
-        return this.ID + " " + this.active;
+        return this.ID.toString() + " " + this.active.toString();
     }
 }

@@ -1,6 +1,5 @@
 package depold;
 
-import com.kenai.jaffl.struct.Struct;
 import org.apache.giraph.conf.LongConfOption;
 import org.apache.giraph.edge.Edge;
 import org.apache.giraph.edge.EdgeFactory;
@@ -28,8 +27,8 @@ import static depold.DepoldMaster.*;
 public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable, MessagesWritable>{
 
     private DepoldMaster.Phases currPhase;
-    public static final LongConfOption threshold = new LongConfOption("Depold.threshold", 1, "threshold");
-    public static final LongConfOption similarity_limit = new LongConfOption("Depold.similarity_limit" , 1, "similarity_limit");
+    private static final LongConfOption threshold = new LongConfOption("Depold.threshold", 1, "threshold");
+    private static final LongConfOption similarity_limit = new LongConfOption("Depold.similarity_limit" , 1, "similarity_limit");
     
     @Override
     public void preSuperstep() {
@@ -40,7 +39,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
     public void compute(Vertex<LongWritable, THALS, FloatWritable> vertex, Iterable<MessagesWritable> messages) throws IOException {
         THALS vertexValue = vertex.getValue();
         MessagesWritable messageValue = new MessagesWritable();
-        if(vertexValue.getActive().equals("true") || currPhase == Phases.POST_PROCESSING_GROUP_DETECTOR){
+        if(vertexValue.getActive().equals(true) || currPhase == Phases.POST_PROCESSING_GROUP_DETECTOR){
 
             switch (currPhase){
                 /**
@@ -72,7 +71,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                                 found = true;
                             }
                         }
-                        if (found == false){
+                        if (!found){
                             vertex.addEdge(EdgeFactory.create(new LongWritable(m.getID()), new FloatWritable(0)));
                         }
                     }
@@ -92,7 +91,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                 case PRE_PROCESSING_TWO_HOP_THIRD_PHASE:{
                     for (MessagesWritable m : messages){
                         for (Long x : m.getNeighbors()) {
-                            vertexValue.addTwo_hop(new Node(m.getID().toString(), "true"), new Node(x.toString(), "true"));
+                            vertexValue.addTwo_hop(new Node(m.getID(), true), new Node(x, true));
 
                         }
                     }
@@ -100,13 +99,13 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                     int filtering_limit = ((int) threshold.get(getConf()));
                     if(vertex.getNumEdges() > filtering_limit){
                         aggregate(DepoldMaster.FILTERED_NODES,new IntWritable(1));
-                        vertexValue.setActive("false");
-                        messageValue.setActive("false");
+                        vertexValue.setActive(false);
+                        messageValue.setActive(false);
                         messageValue.setID(vertex.getId().get());
 
                     }else{
                         aggregate(DepoldMaster.FILTERED_NODES,new IntWritable(0));
-                        messageValue.setActive("true");
+                        messageValue.setActive(true);
                         messageValue.setID(vertex.getId().get());
                     }
 
@@ -121,13 +120,13 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                  */
                 case PRE_PROCESSING_SECOND_PHASE: {
                     for(MessagesWritable m : messages){
-                        if(m.getActive().equals("false")) {
+                        if(m.getActive().equals(false)) {
 
                             for (Map.Entry e : vertexValue.getTwo_hop().entrySet()) {
-                                if (((Node) e.getKey()).getID().equals(String.valueOf(m.getID()))) {
-                                    ((Node) e.getKey()).setActive("false");
-                                } else if (((Node) e.getValue()).getID().equals(String.valueOf(m.getID()))) { 
-                                    ((Node) e.getValue()).setActive("false");
+                                if (((Node) e.getKey()).getID().longValue()==m.getID().longValue()) {
+                                    ((Node) e.getKey()).setActive(false);
+                                } else if (((Node) e.getValue()).getID().longValue()==m.getID()) {
+                                    ((Node) e.getValue()).setActive(false);
                                 }
                             }
                         }
@@ -143,22 +142,22 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                 case CORE_PROCESSING_SIMILARITY_PHASE:
                     vertexValue.getSimilarity_map().clear();
                     for (Edge e : vertex.getEdges()){
-                        vertexValue.addSimilarity_map(new Node((e.getTargetVertexId().toString()), "true"), new DoubleWritable(0));
+                        vertexValue.addSimilarity_map(new Node(new Long(e.getTargetVertexId().toString()), true), new DoubleWritable(0));
                     }
 
                     for (Map.Entry e : vertexValue.getSimilarity_map().entrySet()){
                         for (Map.Entry t : vertexValue.getTwo_hop().entrySet()){
-                            if (((Node)e.getKey()).getID().equals(((Node)t.getKey()).getID())){
+                            if (((Node)e.getKey()).getID().equals((((Node)t.getKey()).getID()))){
                                 ((Node) e.getKey()).setActive(((Node) t.getKey()).getActive());
                             }
                         }
                     }
                     ArrayList<Node> neighbor_of_neighbor;
                     for(Map.Entry e : vertexValue.getSimilarity_map().entrySet()){
-                        if(((Node)e.getKey()).getActive().equals("true")){
+                        if(((Node)e.getKey()).getActive().equals(true)){
                             
                             neighbor_of_neighbor = getNoN(((Node)e.getKey()).getID(), vertexValue.getTwo_hop());
-                            double similarity = Similarity_calculator(vertexValue.getTwo_hop(), neighbor_of_neighbor, vertexValue.getSimilarity_map(), vertex.getId(), ((Node) e.getKey()).getID());
+                            double similarity = Similarity_calculator(vertexValue.getTwo_hop(), neighbor_of_neighbor, vertexValue.getSimilarity_map(), ((Node) e.getKey()).getID());
                             e.setValue(new DoubleWritable(similarity));
                         }
                     }
@@ -171,20 +170,20 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                     ArrayList<Node> to_be_deleted_similarity = new ArrayList<Node>();
                     ArrayList<Node> to_be_deleted_two_hop = new ArrayList<Node>();
                     String tmp = String.valueOf(similarity_limit.get(getConf()));
-                    double similarity_threshold = Double.valueOf(tmp)/Math.pow(new Double(10),Double.valueOf(tmp.length()));
+                    double similarity_threshold = Double.valueOf(tmp)/ Math.pow(10,tmp.length());
                     int removed = 0;
 
                     for (Map.Entry e : vertexValue.getSimilarity_map().entrySet()) {
                         Node key = (Node) e.getKey();
                         DoubleWritable value = ((DoubleWritable) e.getValue());
-                        if (key.getActive().equals("true")) {
+                        if (key.getActive().equals(true)) {
                             if (value.get() < similarity_threshold) {
                                 to_be_deleted_similarity.add(((Node) e.getKey()));
-                                messageValue.addDeleted_nodes(Long.valueOf(key.getID()));
+                                messageValue.addDeleted_nodes(key.getID());
                                 removed++;
                                 
                                 for (Map.Entry k : vertexValue.getTwo_hop().entrySet()) {
-                                    if (((Node) k.getKey()).getActive().equals("true") && ((Node) k.getKey()).getID().equals(key.getID())) {
+                                    if (((Node) k.getKey()).getActive().equals(true) && ((Node) k.getKey()).getID().equals(key.getID())) {
                                         to_be_deleted_two_hop.add(((Node) k.getKey()));
                                     }
                                 }
@@ -206,7 +205,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                         }
                     }
                     for (Node n : to_be_deleted_similarity ){
-                        vertex.removeEdges(new LongWritable(Long.valueOf(n.getID())));
+                        vertex.removeEdges(new LongWritable(n.getID()));
                     }
                     for (Edge e : vertex.getEdges()) {
                         sendMessage(new LongWritable(Long.valueOf(e.getTargetVertexId().toString())), messageValue);
@@ -230,7 +229,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                             {
                                 Node key = ((Node) e.getKey());
                                 Node value = ((Node)e.getValue());
-                                if (key.getActive().equals("true") && key.getID().equals(m.getID().toString()) && value.getActive().equals("true") && value.getID().equals(String.valueOf(deleted))){
+                                if (key.getActive().equals(true) && key.getID().equals(m.getID()) && value.getActive().equals(true) && value.getID().equals(deleted)){
                                     to_be_deleted.put(((Node) e.getKey()), ((Node) e.getValue()));
                                 }
 
@@ -290,18 +289,18 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
 
                     for (Map.Entry e : vertexValue.getSimilarity_map().entrySet()){
                         Node key = ((Node) e.getKey());
-                        if (key.getActive().equals("true")){
+                        if (key.getActive().equals(true)){
                             neighbors++;
                             ArrayList<Node> tmp = getNoN(key.getID(),vertexValue.getTwo_hop());
                             int size = tmp.size();
-                            vertexValue.addCommunity_members(new Node_Degree(Long.valueOf(key.getID()),Long.valueOf((long)size)));
-                            messageValue.addCommunity_members(new Node_Degree(Long.valueOf(key.getID()),Long.valueOf((long)size)));
+                            vertexValue.addCommunity_members(new Node_Degree(key.getID(),(long)size));
+                            messageValue.addCommunity_members(new Node_Degree(key.getID(),(long)size));
                         }
                     }
                     if (neighbors >0){
-                        vertexValue.addCommunity_members(new Node_Degree(new Long(vertex.getId().get()),new Long((long)neighbors)));}
+                        vertexValue.addCommunity_members(new Node_Degree(vertex.getId().get(),(long)neighbors));}
                     else{
-                        vertexValue.addCommunity_members(new Node_Degree(new Long(vertex.getId().get()),new Long(1)));
+                        vertexValue.addCommunity_members(new Node_Degree(vertex.getId().get(),(long)(1)));
                     }
 
                     messageValue.setID(vertex.getId().get());
@@ -358,8 +357,8 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                     messageValue.setID(vertex.getId().get());
 
                     for (Map.Entry m : vertexValue.getSimilarity_map().entrySet()){
-                        if(((Node) m.getKey()).getActive().equals("false")){
-                            sendMessage(new LongWritable(Long.valueOf(((Node) m.getKey()).getID())),messageValue);
+                        if(((Node) m.getKey()).getActive().equals(false)){
+                            sendMessage(new LongWritable(((Node) m.getKey()).getID()),messageValue);
                         }
                     }
                     break;
@@ -368,31 +367,31 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                  * phase used to activate the deactivated nodes and assign them to one or more communities
                  */
                 case POST_PROCESSING_GROUP_DETECTOR:{
-                    if (vertexValue.getActive().equals("false")){
-                        vertexValue.setActive("true");
+                    if (vertexValue.getActive().equals(false)){
+                        vertexValue.setActive(true);
                     } else {
                         int neighbors_true=0;
 
                         for(Map.Entry m : vertexValue.getSimilarity_map().entrySet()){
-                            if(((Node) m.getKey()).getActive().equals("false")){
-                                ((Node) m.getKey()).setActive("true");
+                            if(((Node) m.getKey()).getActive().equals(false)){
+                                ((Node) m.getKey()).setActive(true);
                             } else {
                                 neighbors_true++;
                             }
                         }
-                        vertexValue.addCommunity_filtered_node(new Node_Degree((new Long( vertexValue.getGroup_id())), new Long(neighbors_true)));
+                        vertexValue.addCommunity_filtered_node(new Node_Degree(vertexValue.getGroup_id(), (long)(neighbors_true)));
                         for(Map.Entry m : vertexValue.getTwo_hop().entrySet()){
-                            if((((Node) m.getKey()).getActive().equals("false")) || (((Node) m.getValue()).getActive().equals("false"))){
-                                ((Node) m.getKey()).setActive("true");
-                                ((Node) m.getValue()).setActive("true");
+                            if((((Node) m.getKey()).getActive().equals(false)) || (((Node) m.getValue()).getActive().equals(false))){
+                                ((Node) m.getKey()).setActive(true);
+                                ((Node) m.getValue()).setActive(true);
                             }
                         }
                     }
 
                     ArrayList<Long> seen_communities = new ArrayList<>();
                     for (MessagesWritable m : messages) {
-                        if (!seen_communities.contains(new Long(m.getGroup_id().longValue()))) {
-                            seen_communities.add(new Long(m.getGroup_id().longValue()));
+                        if (!seen_communities.contains(m.getGroup_id())) {
+                            seen_communities.add(m.getGroup_id());
                             double degree = 0d;
                             double degree_community = 0d;
                             for (Node_Degree n : m.getCommunity_members()) {
@@ -406,7 +405,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                             }
                             double average_degree = degree_community / m.getCommunity_members().size();
                             if(degree>average_degree){
-                                vertexValue.addCommunity_filtered_node(new Node_Degree(new Long(m.getGroup_id().longValue()), new Long((long) degree)));
+                                vertexValue.addCommunity_filtered_node(new Node_Degree(m.getGroup_id(), (long) degree));
                             }
 
 
@@ -432,13 +431,13 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
      * @return the active two_hop adjacency list of the neighbor
      */
 
-    public ArrayList<Node> getNoN (String id, Map two_hop){
+    private ArrayList<Node> getNoN (Long id, Map two_hop){
         ArrayList<Node> tmp = new ArrayList<>();
         for (Object e : two_hop.entrySet()){
             Node key = ((Node)((Map.Entry) e).getKey());
             Node value = ((Node)((Map.Entry)e).getValue());
             if(key.getID().equals(id)){
-                if(value.getActive().equals("true")){
+                if(value.getActive().equals(true)){
                     tmp.add(value);
                 }
             }
@@ -451,18 +450,17 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
      * @param two_hop - two_hop map
      * @param target_node_neighbors - neighbors of the target neighbor
      * @param similarity - similarity map
-     * @param id - the ID of the node
      * @param neighbor - the ID of the target neighbor
      * @return similarity value between the two nodes
      */
-    public double Similarity_calculator(Map two_hop, ArrayList target_node_neighbors, Map similarity, LongWritable id, String neighbor){
+    private double Similarity_calculator(Map two_hop, ArrayList target_node_neighbors, Map similarity, Long neighbor){
         double p =1d;
         double d = 0;
-        ArrayList<Node> tmp = new ArrayList<>();
+        ArrayList<Node> tmp;
         for (Object e : similarity.entrySet())
         {
             Node e_key = ((Node)((Map.Entry)e).getKey());
-            if (e_key.getActive().equals("true"))
+            if (e_key.getActive().equals(true))
             {
                 d++;
             }
@@ -472,7 +470,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
         {
             Node e_key = ((Node)((Map.Entry)e).getKey());
             Node e_value = ((Node)((Map.Entry)e).getValue());
-            if(e_value.getID().equals(neighbor) && e_value.getActive().equals("true") && e_key.getActive().equals("true"))
+            if(e_value.getID().equals(neighbor) && e_value.getActive().equals(true) && e_key.getActive().equals(true))
             {
                found = true;
             }
@@ -482,7 +480,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
 
         for (Object e : similarity.entrySet()) {
             Node e_key = ((Node) ((Map.Entry) e).getKey());
-            if (e_key.getActive().equals("true")) {
+            if (e_key.getActive().equals(true)) {
 
                 for (Object n : target_node_neighbors) {
                     Node x = ((Node) n);
@@ -493,7 +491,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                 }
             }
         }
-        if (found == true) {
+        if (found) {
             p = common_nodes.size();
         }
         for (Node c : common_nodes) {
@@ -507,13 +505,12 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
             p = p + q / 2;
         }
         tmp = getNoN(neighbor, two_hop);
-        if(found==true)
+        if(found)
         {
             d = 1 + Math.min((int)d, tmp.size());
         }
         else{
         d = d + tmp.size();}
-        double res = p/d;
-        return res;
+        return p/d;
     }
 }

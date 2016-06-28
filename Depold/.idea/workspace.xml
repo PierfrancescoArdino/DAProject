@@ -6,7 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/depold/Depold.java" line="190" mnemonic="7" />
+    <bookmark url="file://$PROJECT_DIR$/src/depold/Depold.java" line="189" mnemonic="7" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bd7d1580-ba40-46f6-a445-31aab32748be" name="Default" comment="" />
@@ -31,11 +31,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Depold.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Depold.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/depold/Depold.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="648">
-              <caret line="120" column="19" selection-start-line="120" selection-start-column="19" selection-end-line="120" selection-end-column="19" />
+            <state relative-caret-position="273">
+              <caret line="80" column="21" selection-start-line="80" selection-start-column="21" selection-end-line="80" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -56,8 +56,18 @@
       <file leaf-file-name="MessagesWritable.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/depold/MessagesWritable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2016">
-              <caret line="123" column="36" selection-start-line="123" selection-start-column="16" selection-end-line="123" selection-end-column="36" />
+            <state relative-caret-position="277">
+              <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Node_Degree.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/depold/Node_Degree.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="97">
+              <caret line="15" column="54" selection-start-line="15" selection-start-column="54" selection-end-line="15" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -73,10 +83,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DepoldMaster.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DepoldMaster.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/depold/DepoldMaster.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
+            <state relative-caret-position="594">
               <caret line="68" column="107" selection-start-line="68" selection-start-column="107" selection-end-line="68" selection-end-column="107" />
               <folding />
             </state>
@@ -86,8 +96,18 @@
       <file leaf-file-name="THALS.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/depold/THALS.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="871">
-              <caret line="79" column="42" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="42" />
+            <state relative-caret-position="2167">
+              <caret line="203" column="1" selection-start-line="203" selection-start-column="1" selection-end-line="203" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Node.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/depold/Node.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="781">
+              <caret line="59" column="1" selection-start-line="59" selection-start-column="1" selection-end-line="59" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -116,15 +136,15 @@
         <option value="$PROJECT_DIR$/src/depold/DepoldInputFormat.java" />
         <option value="$USER_HOME$/giraph/giraph-core/src/main/java/org/apache/giraph/aggregators/IntSumAggregator.java" />
         <option value="$PROJECT_DIR$/src/depold/Store_value.java" />
-        <option value="$PROJECT_DIR$/src/depold/THALS.java" />
         <option value="$PROJECT_DIR$/src/depold/DepoldOutputFormat.java" />
         <option value="$PROJECT_DIR$/src/depold/Nodo_Degree.java" />
         <option value="$PROJECT_DIR$/src/depold/Nodo.java" />
-        <option value="$PROJECT_DIR$/src/depold/Node.java" />
         <option value="$PROJECT_DIR$/src/depold/Node_Degree.java" />
+        <option value="$PROJECT_DIR$/src/depold/DepoldMaster.java" />
+        <option value="$PROJECT_DIR$/src/depold/Node.java" />
+        <option value="$PROJECT_DIR$/src/depold/THALS.java" />
         <option value="$PROJECT_DIR$/src/depold/MessagesWritable.java" />
         <option value="$PROJECT_DIR$/src/depold/Depold.java" />
-        <option value="$PROJECT_DIR$/src/depold/DepoldMaster.java" />
       </list>
     </option>
   </component>
@@ -180,6 +200,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -222,8 +244,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -699,15 +719,16 @@
       <workItem from="1466838550516" duration="1368000" />
       <workItem from="1466849587220" duration="1320000" />
       <workItem from="1466873850647" duration="280000" />
+      <workItem from="1467138870734" duration="5297000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="175180000" />
+    <option name="totallyTimeSpent" value="180477000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -796,7 +817,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/io/formats/TextVertexInputFormat.java" />
     <entry file="jar://$USER_HOME$/Documenti/DistributedAlgorithms/hadoop-core-1.2.1.jar!/org/apache/hadoop/io/LongWritable.class" />
     <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/io/formats/JsonLongDoubleFloatDoubleVertexInputFormat.java" />
     <entry file="file://$USER_HOME$/Documenti/DistributedAlgorithms/giraph/giraph-core/src/main/java/org/apache/giraph/comm/WorkerClientRequestProcessor.java" />
@@ -960,20 +980,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/depold/Node.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="17" column="94" selection-start-line="17" selection-start-column="94" selection-end-line="17" selection-end-column="94" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/depold/Node_Degree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="15" column="54" selection-start-line="15" selection-start-column="54" selection-end-line="15" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/giraph/giraph-core/src/main/java/org/apache/giraph/io/formats/IdWithValueTextOutputFormat.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
@@ -1009,18 +1015,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/depold/MessagesWritable.java">
+    <entry file="jar:///usr/lib/jvm/java-8-jdk/src.zip!/java/lang/Long.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2016">
-          <caret line="123" column="36" selection-start-line="123" selection-start-column="16" selection-end-line="123" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/depold/DepoldOutputFormat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1512">
-          <caret line="108" column="80" selection-start-line="108" selection-start-column="80" selection-end-line="108" selection-end-column="80" />
+        <state relative-caret-position="302">
+          <caret line="1073" column="19" selection-start-line="1073" selection-start-column="19" selection-end-line="1073" selection-end-column="19" />
           <folding />
         </state>
       </provider>
@@ -1033,29 +1031,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/depold/Depold.java">
+    <entry file="file://$PROJECT_DIR$/src/depold/MessagesWritable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="120" column="19" selection-start-line="120" selection-start-column="19" selection-end-line="120" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="277">
+          <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/depold/THALS.java">
+    <entry file="file://$PROJECT_DIR$/src/depold/Node_Degree.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="871">
-          <caret line="79" column="42" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="42" />
+        <state relative-caret-position="97">
+          <caret line="15" column="54" selection-start-line="15" selection-start-column="54" selection-end-line="15" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/depold/DepoldOutputFormat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1512">
+          <caret line="108" column="80" selection-start-line="108" selection-start-column="80" selection-end-line="108" selection-end-column="80" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/depold/DepoldMaster.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
+        <state relative-caret-position="594">
           <caret line="68" column="107" selection-start-line="68" selection-start-column="107" selection-end-line="68" selection-end-column="107" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/depold/THALS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2167">
+          <caret line="203" column="1" selection-start-line="203" selection-start-column="1" selection-end-line="203" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/depold/Node.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="781">
+          <caret line="59" column="1" selection-start-line="59" selection-start-column="1" selection-end-line="59" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/depold/Depold.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="80" column="21" selection-start-line="80" selection-start-column="21" selection-end-line="80" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -30,7 +30,7 @@ public class MessagesWritable implements Writable{
     /**
      * variable used to send the status of the node
      */
-    String active;
+    Boolean active;
     /**
      * array used to send the ID of the deleted nodes
      */
@@ -46,7 +46,7 @@ public class MessagesWritable implements Writable{
 
     public MessagesWritable(){
         neighbors = new LongArrayList();
-        active = "true";
+        active = Boolean.TRUE;
         deleted_nodes = new LongArrayList();
         group_id = new Long(0);
         community_members = new ArrayList<>();
@@ -61,7 +61,7 @@ public class MessagesWritable implements Writable{
                 dataOutput.writeLong(v);
             }
         }
-        WritableUtils.writeString(dataOutput,active);
+        dataOutput.writeBoolean(active);
         dataOutput.writeLong(ID);
         int dim = deleted_nodes == null ? 0:deleted_nodes.size();
         dataOutput.writeInt(dim);
@@ -91,7 +91,7 @@ public class MessagesWritable implements Writable{
                 addNeighbors(dataInput.readLong());
             }
         }
-        active = WritableUtils.readString(dataInput);
+        active = dataInput.readBoolean();
         ID = dataInput.readLong();
 
         int dim = dataInput.readInt();
@@ -127,11 +127,11 @@ public class MessagesWritable implements Writable{
         return neighbors;
     }
 
-    public String getActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(String active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
