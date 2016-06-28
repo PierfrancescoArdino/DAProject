@@ -24,6 +24,7 @@ public class DepoldMaster extends DefaultMasterCompute {
     public static final String DELETED_NODES = "depold.deleted_nodes";
     public static final String WCC = "depold.wcc";
     public static final String GROUP_DEGREE = "depold.group_degree";
+    public static final String FILTERED_NODES = "depold.filtered_nodes";
     public static final LongConfOption converge = new LongConfOption("Depold.converge", 1, "converge threshold");
 
 
@@ -42,6 +43,7 @@ public class DepoldMaster extends DefaultMasterCompute {
         registerPersistentAggregator(DELETED_NODES, IntSumAggregator.class);
         registerAggregator(WCC, IntSumAggregator.class);
         registerAggregator(GROUP_DEGREE,IntSumAggregator.class);
+        registerAggregator(FILTERED_NODES,IntSumAggregator.class);
     }
 
     @Override
@@ -51,6 +53,7 @@ public class DepoldMaster extends DefaultMasterCompute {
             setAggregatedValue(DELETED_NODES,new IntWritable(0));
             setAggregatedValue(WCC, new IntWritable(1));
             setAggregatedValue(GROUP_DEGREE, new IntWritable(1));
+            setAggregatedValue(FILTERED_NODES,new IntWritable(0));
         } else {
             Phases currPhase = getPhase();
             int converge_value = ((int) converge.get(getConf()));
@@ -63,6 +66,7 @@ public class DepoldMaster extends DefaultMasterCompute {
                     setPhase(Phases.PRE_PROCESSING_TWO_HOP_THIRD_PHASE);
                     break;
                 case PRE_PROCESSING_TWO_HOP_THIRD_PHASE:
+                    System.out.println("Il numero di nodi filtrati e' " + getAggregatedValue(FILTERED_NODES));
                     setPhase(Phases.PRE_PROCESSING_SECOND_PHASE);
                     break;
                 case PRE_PROCESSING_SECOND_PHASE:

@@ -99,11 +99,13 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
 
                     int filtering_limit = ((int) threshold.get(getConf()));
                     if(vertex.getNumEdges() > filtering_limit){
+                        aggregate(DepoldMaster.FILTERED_NODES,new IntWritable(1));
                         vertexValue.setActive("false");
                         messageValue.setActive("false");
                         messageValue.setID(vertex.getId().get());
 
                     }else{
+                        aggregate(DepoldMaster.FILTERED_NODES,new IntWritable(0));
                         messageValue.setActive("true");
                         messageValue.setID(vertex.getId().get());
                     }
@@ -171,7 +173,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                     String tmp = String.valueOf(similarity_limit.get(getConf()));
                     double similarity_threshold = Double.valueOf(tmp)/Math.pow(new Double(10),Double.valueOf(tmp.length()));
                     int removed = 0;
-                    
+
                     for (Map.Entry e : vertexValue.getSimilarity_map().entrySet()) {
                         Node key = (Node) e.getKey();
                         DoubleWritable value = ((DoubleWritable) e.getValue());
