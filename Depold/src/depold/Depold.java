@@ -79,6 +79,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                     for (Edge e : vertex.getEdges()){
                         messageValue.addNeighbors(Long.valueOf(e.getTargetVertexId().toString()));
                     }
+                    System.out.println("I'm vertex " + vertex.getId() + " " + messageValue.getNeighbors());
                     messageValue.setID(Long.valueOf(vertex.getId().toString()));
                     sendMessageToAllEdges(vertex,messageValue);
                     vertex.setValue(vertexValue);
@@ -390,6 +391,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
 
                     ArrayList<Long> seen_communities = new ArrayList<>();
                     for (MessagesWritable m : messages) {
+                        System.out.println("I'm node " + vertex.getId() + " " + m.getCommunity_members());
                         if (!seen_communities.contains(m.getGroup_id())) {
                             seen_communities.add(m.getGroup_id());
                             double degree = 0d;
@@ -404,6 +406,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
 
                             }
                             double average_degree = degree_community / m.getCommunity_members().size();
+                            System.out.println(average_degree + " " + m.getGroup_id() + " " + degree + " id " + vertex.getId());
                             if(degree>average_degree){
                                 vertexValue.addCommunity_filtered_node(new Node_Degree(m.getGroup_id(), (long) degree));
                             }
