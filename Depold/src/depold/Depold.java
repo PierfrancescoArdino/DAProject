@@ -79,7 +79,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                     for (Edge e : vertex.getEdges()){
                         messageValue.addNeighbors(Long.valueOf(e.getTargetVertexId().toString()));
                     }
-                    System.out.println("I'm vertex " + vertex.getId() + " " + messageValue.getNeighbors());
+                    
                     messageValue.setID(Long.valueOf(vertex.getId().toString()));
                     sendMessageToAllEdges(vertex,messageValue);
                     vertex.setValue(vertexValue);
@@ -111,6 +111,10 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                     }
 
                     vertex.setValue(vertexValue);
+                    for (Map.Entry e : vertexValue.getTwo_hop().entrySet())
+                    {
+                        sendMessage(new LongWritable(((Node) e.getValue()).getID()),messageValue);
+                    }
                     for (Edge e : vertex.getEdges()) {
                         sendMessage(new LongWritable(Long.valueOf(e.getTargetVertexId().toString())), messageValue);
                     }
@@ -286,6 +290,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                  * phase used to compute the average degree of a community first part
                  */
                 case POST_PROCESSING_DEGREE_CALCULATOR_FIRST:{
+                    System.out.println("Io sono il nodo " + vertex.getId() + " la mia sim_map e' " + vertexValue.getSimilarity_map() + " la mia two hop e' " + vertexValue.getTwo_hop());
                     int neighbors=0;
 
                     for (Map.Entry e : vertexValue.getSimilarity_map().entrySet()){
@@ -293,6 +298,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                         if (key.getActive().equals(true)){
                             neighbors++;
                             ArrayList<Node> tmp = getNoN(key.getID(),vertexValue.getTwo_hop());
+                            System.out.println("Sono il nodo " + vertex.getId() + " NoN del nodo " + key.getID() + " e' "+ tmp);
                             int size = tmp.size();
                             vertexValue.addCommunity_members(new Node_Degree(key.getID(),(long)size));
                             messageValue.addCommunity_members(new Node_Degree(key.getID(),(long)size));
@@ -371,7 +377,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                     if (vertexValue.getActive().equals(false)){
                         vertexValue.setActive(true);
                     } else {
-                        int neighbors_true=0;
+                        /*int neighbors_true=0;
 
                         for(Map.Entry m : vertexValue.getSimilarity_map().entrySet()){
                             if(((Node) m.getKey()).getActive().equals(false)){
@@ -380,7 +386,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                                 neighbors_true++;
                             }
                         }
-                        vertexValue.addCommunity_filtered_node(new Node_Degree(vertexValue.getGroup_id(), (long)(neighbors_true)));
+                        vertexValue.addCommunity_filtered_node(new Node_Degree(vertexValue.getGroup_id(), (long)(neighbors_true)));*/
                         for(Map.Entry m : vertexValue.getTwo_hop().entrySet()){
                             if((((Node) m.getKey()).getActive().equals(false)) || (((Node) m.getValue()).getActive().equals(false))){
                                 ((Node) m.getKey()).setActive(true);
@@ -391,7 +397,7 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
 
                     ArrayList<Long> seen_communities = new ArrayList<>();
                     for (MessagesWritable m : messages) {
-                        System.out.println("I'm node " + vertex.getId() + " " + m.getCommunity_members());
+                        System.out.println("I'm node " + vertex.getId() + " " + m.getCommunity_members() + " " + m.getID());
                         if (!seen_communities.contains(m.getGroup_id())) {
                             seen_communities.add(m.getGroup_id());
                             double degree = 0d;
@@ -508,9 +514,9 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
             p = p + q / 2;
         }
         tmp = getNoN(neighbor, two_hop);
-        if(found)
+        if(!found)
         {
-            d = 1 + Math.min((int)d, tmp.size());
+            d = 1 + Math.max((int)d, tmp.size());
         }
         else{
         d = d + tmp.size();}
