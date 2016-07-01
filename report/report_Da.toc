@@ -38,3 +38,4 @@
 \contentsline {subsection}{\numberline {4.3}Graph Generation}{10}
 \contentsline {subsection}{\numberline {4.4}Running a simulation}{10}
 \contentsline {subsection}{\numberline {4.5}Results}{11}
+\contentsline {section}{\numberline {5}Conclusion}{16}

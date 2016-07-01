@@ -377,16 +377,6 @@ public class Depold extends BasicComputation <LongWritable, THALS, FloatWritable
                     if (vertexValue.getActive().equals(false)){
                         vertexValue.setActive(true);
                     } else {
-                        /*int neighbors_true=0;
-
-                        for(Map.Entry m : vertexValue.getSimilarity_map().entrySet()){
-                            if(((Node) m.getKey()).getActive().equals(false)){
-                                ((Node) m.getKey()).setActive(true);
-                            } else {
-                                neighbors_true++;
-                            }
-                        }
-                        vertexValue.addCommunity_filtered_node(new Node_Degree(vertexValue.getGroup_id(), (long)(neighbors_true)));*/
                         for(Map.Entry m : vertexValue.getTwo_hop().entrySet()){
                             if((((Node) m.getKey()).getActive().equals(false)) || (((Node) m.getValue()).getActive().equals(false))){
                                 ((Node) m.getKey()).setActive(true);

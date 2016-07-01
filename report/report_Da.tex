@@ -196,11 +196,11 @@ if $v\textsubscript{i}$ and $v\textsubscript{j}$ do not have common neighbors $S
   S(v\textsubscript{j},v\textsubscript{i}) = \frac{1}{1 + d} = \frac{1}{3} = 0.33
 \end{equation}
 while they should be equal.This can potentially change the graph in an undirected one if   $S(v\textsubscript{i},v\textsubscript{j})$ is under the $\alpha$ threshold and $S(v\textsubscript{j},v\textsubscript{i})$ is over.
-We decided to use the minimum between the number of neighbors of the two nodes plus 1. So line 13 of the algorithm becomes
+We decided to use the maximum between the number of neighbors of the two nodes plus 1. So line 13 of the algorithm becomes
 \begin{equation}
-    d = 1 + min(\pi(i), \pi(j))
+    d = 1 + man(\pi(i), \pi(j))
 \end{equation}
-where $\pi(i)$ is the number of neighbors of $v\textsubscript{i}$ and $\pi(j)$ is the number of neighbors of $v\textsubscript{j}$
+where $\pi(i)$ is the number of neighbors of $v\textsubscript{i}$ and $\pi(j)$ is the number of neighbors of $v\textsubscript{j}$. This because two nodes that are neighbors but that do not have any common neighbors tend to have a lower similarity.
 \subsubsection{Coreprocessing\_Topology\_First\_Phase}
 In the phase we check if the similarity values in the \emph{Similarity\_Map} are under the $\alpha$ threshold. If so we delete the edges connecting the nodes, delete the entries in both \emph{Two\_Hop\_map} and \emph{Similarity\_map}, updates the Aggregator that takes track of the deleted nodes and finally send the \emph{Deleted\_nodes} list to the neighbors of the nodes.
 \subsubsection{Coreprocessing\_Topology\_Second\_Phase}
@@ -271,7 +271,7 @@ The parameters used during the simulations are the following:
     \centering
     \begin{tabu}{|l|c|c|r|}
         \hline
-        Simulation number & Duration & Filtered nodes  & Founded communities  \\ \hline
+        Simulation number & Duration & Filtered nodes  & Communities  \\ \hline
         \textbf{1}    & 75s  & 1  & 3   \\ \hline
         \textbf{2}    & 74s  & 1  & 1   \\ \hline
         \textbf{3}    & 70s  & 3  & 2   \\ \hline  \end{tabu}
@@ -281,7 +281,8 @@ The parameters used during the simulations are the following:
 
 The results of the simulations are shown in \Cref{tab:result1}. As can be seen the first simulation detected three communities $C_1 = ({v_1, v_2, v_3})$, $C_{12} =({v_{12}, v_{16}, v_{17}})$ and $C_5 ={(v_5, v_6, v_{10}, v_{11}, v_{19}, v_{15}, v_{21}, v_{18}, v_{16})}$ and finally $v_7$ does not belong to any community. \\
 The second simulation detected one community $C_5 = ({v_5, v_{10}, v_{11}, v_{15}})$ while the remaining nodes do not belong to any communities.\\
-Finally, the third simulation detected two communities $C_{12}=({v_7, v_{12}, v_{17}, v_{16}})$, $C_{18} =({v_{16}, v_{21}, v_{18}, v_{19}})$ with the remaining nodes that do not belong to any communities.
+As can be noticed, an higher $\gamma$ helps to detect very strong communities.
+Finally, the third simulation detected two communities $C_{12}=({v_7, v_{12}, v_{17}, v_{16}})$, $C_{18} =({v_{16}, v_{21}, v_{18}, v_{19}})$ with the remaining nodes that do not belong to any communities. As can be noticed, lowering the $\theta$ threshold helps to detect the community $C_{18}$ which has not been detect in the previous two simulation.
 \\
 \\
 \\
@@ -315,7 +316,7 @@ The parameters used during the simulations are the following:
     \centering
     \begin{tabu}{|l|c|c|r|}
         \hline
-        Simulation number & Duration & Filtered nodes  & Founded communities  \\ \hline
+        Simulation number & Duration & Filtered nodes  & Communities  \\ \hline
         \textbf{1}    & 120s  & 0  & 4   \\ \hline
         \textbf{2}    & 100s  & 46  & 4   \\ \hline
         \textbf{3}    & 180s  & 361  & 11    \\ \hline  \end{tabu}
@@ -323,7 +324,7 @@ The parameters used during the simulations are the following:
     \label{tab:result2}
 \end{table}
 
- The results of the simulations are shown in \Cref{tab:result2}. The first two simulations detect the exact number of communities, in fact there are 4 communities with 100 nodes each. The second simulation takes less time to complete since a higher number of nodes is filtered and so the algorithm converge in less time. The third simulation detects 11 communities and nearly 50 nodes without a community, this is due the small $\theta$ threshold that confuse the communities and, moreover, it takes more time to finish since the algorithm takes more time to converge in the \emph{WCC} phase.
+ The results of the simulations are shown in \Cref{tab:result2}. The first two simulations detect the exact number of communities, in fact there are 4 communities with 100 nodes each. The second simulation takes less time to complete since a higher number of nodes is filtered and so the algorithm converge in less time. The third simulation detects 11 communities and nearly 50 nodes without a community, this is due the small $\theta$ threshold that confuse the communities and, moreover, it takes more time to finish since the algorithm takes more steps and so more time to converge in the \emph{WCC} phase.
 \\
 \\
 \\
@@ -357,7 +358,7 @@ The parameters used during the simulations are the following:
     \centering
     \begin{tabu}{|l|c|c|r|}
         \hline
-        Simulation number & duration & filtered nodes  & founded communities  \\ \hline
+        Simulation number & Duration & Filtered nodes  & Communities  \\ \hline
         \textbf{1}    & 90s  & 0  & 4   \\ \hline
         \textbf{2}    & 95s  & 16  & 4   \\ \hline
         \textbf{3}    & 76s  & 187  & 4    \\ \hline
@@ -368,8 +369,13 @@ The parameters used during the simulations are the following:
     \label{tab:result3}
 \end{table}
 
-As shown in \Cref{tab:result3} each simulations gives the expected number of communities, but only the first two are correct. Indeed, they give as output 4 communities of 50 nodes. Even if the second simulation has filtered 16 nodes, it is slower than the first, this because it takes more time to converge in the \emph{WCC} phase. The last two simulations give the exact number of communities but they are wrong. Indeed, there is a community with more than 100 nodes, which is not correct. Moreover, in both simulations, there are 7 nodes that do not belong to any communities.
-
+As shown in \Cref{tab:result3} each simulation gives the expected number of communities, but only the first two are correct. Indeed, they give as output 4 communities of 50 nodes.
+As can be seen, even if the second simulation has filtered 16 nodes, it is slower than the first, this can be explained by the fact that the \emph{WCC} phase takes more steps to converge and so more time to complete. The last two simulations give the exact number of communities but they are wrong. Indeed, there is a community with more than 100 nodes, which is not correct. Moreover, in both simulations, there are 7 nodes that do not belong to any communities.
+\section{Conclusion}
+During this report we showed that Community Detection is not trivial, find a good similarity metric can be difficult and different metrics even if with small changes can lead to a completely different results.\\
+Find good thresholds for large graphs is crucial. In fact, as we showed, small changes in the thresholds lead to different results in detected communities.\\ Changing the $\theta$ threshold can decrease the simulation time since high degree nodes can act as a bottleneck but it can also confuse the communities and sometimes also increase the simulations time due to the more steps taken by the algorithm. \\
+Changes in the $\gamma$ threshold help to detect strong communities, high threshold, or weakly communities, low threshold.
+Finally, a good compromise in the $\varphi$ threshold is crucial in graphs with a large number of nodes. A small threshold leads to more accurate topology but it can drastically increase the simulation time, while a high threshold leads to an opposite results.
 \bibliographystyle{ieeetr}
 \bibliography{biblio}
     %
