@@ -25,17 +25,17 @@
 \contentsline {subsubsection}{\numberline {3.4.1}Coreprocessing\_Similarity\_Phase}{7}
 \contentsline {subsubsection}{\numberline {3.4.2}Coreprocessing\_Topology\_First\_Phase}{8}
 \contentsline {subsubsection}{\numberline {3.4.3}Coreprocessing\_Topology\_Second\_Phase}{8}
-\contentsline {subsection}{\numberline {3.5}Postprocessing}{8}
-\contentsline {subsubsection}{\numberline {3.5.1}Postprocessing\_WCC\_First}{8}
+\contentsline {subsection}{\numberline {3.5}Postprocessing}{9}
+\contentsline {subsubsection}{\numberline {3.5.1}Postprocessing\_WCC\_First}{9}
 \contentsline {subsubsection}{\numberline {3.5.2}Postprocessing\_WCC\_Ssecond}{9}
 \contentsline {subsubsection}{\numberline {3.5.3}Postprocessing\_Degree\_Calculator\_First}{9}
 \contentsline {subsubsection}{\numberline {3.5.4}Postprocessing\_Degree\_Calculator\_Second}{9}
 \contentsline {subsubsection}{\numberline {3.5.5}Postprocessing\_Degree\_Calculator\_Third}{9}
 \contentsline {subsubsection}{\numberline {3.5.6}Postprocessing\_Group\_Detector}{9}
-\contentsline {section}{\numberline {4}Simulations and Results}{9}
-\contentsline {subsection}{\numberline {4.1}Assumption}{9}
+\contentsline {section}{\numberline {4}Simulations and Results}{10}
+\contentsline {subsection}{\numberline {4.1}Assumption}{10}
 \contentsline {subsection}{\numberline {4.2}Input graph}{10}
 \contentsline {subsection}{\numberline {4.3}Graph Generation}{10}
 \contentsline {subsection}{\numberline {4.4}Running a simulation}{10}
 \contentsline {subsection}{\numberline {4.5}Results}{11}
-\contentsline {section}{\numberline {5}Conclusion}{16}
+\contentsline {section}{\numberline {5}Conclusion}{17}

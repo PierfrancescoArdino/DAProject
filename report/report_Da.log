@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.2.28)  1 JUL 2016 12:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.2.28)  1 JUL 2016 16:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -375,9 +375,11 @@ File: graphpaper.png Graphic file (type png)
  <use graphpaper.png>
 Package pdftex.def Info: graphpaper.png used on input line 250.
 (pdftex.def)             Requested size: 390.0pt x 292.4956pt.
- [11 <./graphpaper.png>] <Graph500.png, id=62, 578.16pt x 433.62pt>
+ [11]
+[12 <./graphpaper.png>] <Graph500.png, id=65, 578.16pt x 433.62pt>
 File: Graph500.png Graphic file (type png)
- <use Graph500.png>
+
+<use Graph500.png>
 Package pdftex.def Info: Graph500.png used on input line 294.
 (pdftex.def)             Requested size: 390.0pt x 292.4956pt.
 
@@ -400,7 +402,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 282--297
 
  []
 
-[12] [13 <./Graph500.png>] <Graph200.png, id=70, 578.16pt x 433.62pt>
+[13] [14 <./Graph500.png>] <Graph200.png, id=73, 578.16pt x 433.62pt>
 File: Graph200.png Graphic file (type png)
 
 <use Graph200.png>
@@ -426,7 +428,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 327--339
 
  []
 
-[14] [15 <./Graph200.png>] (./report_Da.bbl [16]) [17] (./report_Da.aux) ) 
+[15] [16 <./Graph200.png>] (./report_Da.bbl [17]) [18] (./report_Da.aux) ) 
 Here is how much of TeX's memory you used:
  4875 strings out of 493054
  78279 string characters out of 6140586
@@ -445,10 +447,10 @@ texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts
 rier/ucrr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/s
 hare/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/t
 ype1/urw/times/utmri8a.pfb>
-Output written on report_Da.pdf (20 pages, 720641 bytes).
+Output written on report_Da.pdf (21 pages, 721449 bytes).
 PDF statistics:
- 119 PDF objects out of 1000 (max. 8388607)
- 78 compressed objects within 1 object stream
+ 122 PDF objects out of 1000 (max. 8388607)
+ 80 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
